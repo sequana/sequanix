@@ -21,27 +21,20 @@ jobs:
         python-version: 3.7
     - name: Setup ubuntu
       run: |
-        sudo apt install libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0
-        /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1920x1200x24 -ac +extension GLX
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
+        sudo apt install xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0
+        sudo apt install graphviz
     - name: Install dependencies
       run: |
-        conda install -c conda-forge mamba --quiet
-        mamba create -c conda-forge --quiet -y --name sequanix python=3.7 graphviz
-        source activate sequanix
         pip install -r requirements.txt -r requirements_dev.txt
     - name: Lint with flake8
       run: |
-        source activate sequanix
-        mamba install -c conda-forge flake8 --quiet -y
+        pip install flake8
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude sequanix/ui/
     - name: Test with pytest
       run: |
-        source activate sequanix
+        sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
+        export DISPLAY=":1"
         pytest

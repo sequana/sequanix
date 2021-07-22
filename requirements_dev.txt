@@ -1,4 +1,4 @@
 pytest
 pytest-qt
 pytest-mock
-git+https://github.com/sequana/sequana_quality_control.git@master#egg=sequana_quality_control
+git+https://github.com/sequana/sequana_quality_control.git@b5635419754b3cb8920dd0b5979966945715c3ba#egg=sequana_quality_control
