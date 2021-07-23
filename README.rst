@@ -6,8 +6,8 @@ Sequanix is a graphical user interface (GUI) that can be used to run Snakemake w
 .. image:: https://github.com/sequana/sequanix/actions/workflows/main.yml/badge.svg?branch=master
     :target: https://github.com/sequana/sequanix/actions/workflows/main.yml
     
-.. image:: https://coveralls.io/repos/github/sequana/sequana/badge.svg?branch=master
-    :target: https://coveralls.io/github/sequana/sequana?branch=master 
+.. image:: https://coveralls.io/repos/github/sequana/sequanix/badge.svg?branch=master
+    :target: https://coveralls.io/github/sequana/sequanix?branch=master 
 
 .. image:: http://readthedocs.org/projects/sequana/badge/?version=master
     :target: http://sequana.readthedocs.org/en/latest/?badge=master
