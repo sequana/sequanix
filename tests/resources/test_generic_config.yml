@@ -1,2 +1,5 @@
 # example of docstring
 N: 500000
+
+
+dummy: "a section with no comments"

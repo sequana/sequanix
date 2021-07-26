@@ -6,7 +6,7 @@
 #
 #  File author(s):
 #      Thomas Cokelaer <thomas.cokelaer@pasteur.fr>
-#      Dimitri Desvillechabrol <dimitri.desvillechabrol@pasteur.fr>, 
+#      Dimitri Desvillechabrol <dimitri.desvillechabrol@pasteur.fr>,
 #          <d.desvillechabrol@gmail.com>
 #
 #  Distributed under the terms of the 3-clause BSD license.
@@ -22,45 +22,56 @@ import glob
 import platform
 import pathlib
 import re
+import subprocess
 
 import ruamel.yaml
 
 import colorlog
+
 logger = colorlog.getLogger(__name__)
 
 from docutils import core
-from docutils.writers.html4css1 import Writer,HTMLTranslator
+from docutils.writers.html4css1 import Writer, HTMLTranslator
 
 
-__all__ = ['rest2html', 'on_cluster', "YamlDocParser"]
+__all__ = ["rest2html", "on_cluster", "YamlDocParser"]
 
 
-def on_cluster(pattern=["tars-"]):
+def on_cluster(cmds=["sbatch"]):
     """Used to check if we are on a cluster
 
-    "tars-" is the name of a cluster's hostname.
-    Change or append the argument **pattern** with your cluster's hostname
+    :return: True is a clsuter commands is found
 
-    :param str pattern: a list of names (strings) or a string
+    Currently, checks for slurm commands only
 
     """
-    if isinstance(pattern, str):
-        pattern = [pattern]
 
-    for this in pattern:
-        if platform.uname().node.startswith(this):
+    def cmd_exists(cmd):
+        result = subprocess.call(
+            "type " + cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        if result == 0:
             return True
         else:
             return False
 
+    for cmd in cmds:
+        if cmd_exists("sbatch"):
+            return True
+            break
+    return False
 
-class HTMLFragmentTranslator( HTMLTranslator ):
-    def __init__( self, document ):
-        HTMLTranslator.__init__( self, document )
+
+class HTMLFragmentTranslator(HTMLTranslator):
+    def __init__(self, document):
+        HTMLTranslator.__init__(self, document)
+
     def astext(self):
-        return ''.join(self.body)
-    def visit_document(self,node):
-        self.body.append(self.starttag(node,"div",CLASS="comment"))
+        return "".join(self.body)
+
+    def visit_document(self, node):
+        self.body.append(self.starttag(node, "div", CLASS="comment"))
+
 
 html_fragment_writer = Writer()
 html_fragment_writer.translator_class = HTMLFragmentTranslator
@@ -69,11 +80,9 @@ html_fragment_writer.translator_class = HTMLFragmentTranslator
 def rest2html(s):
     """Converts a restructuredText document into HTML
 
-    Note that the returned object is a bytes so need to be 
+    Note that the returned object is a bytes so need to be
     decoded with decode()"""
-    return core.publish_string( s, writer = html_fragment_writer )
-
-
+    return core.publish_string(s, writer=html_fragment_writer)
 
 
 class YamlDocParser(object):
@@ -83,7 +92,7 @@ class YamlDocParser(object):
     YAML configuration file with block comments (see developers guide in
     :ref:`developers` )
 
-    Once read and parsed, all block comments before top-level sections are to 
+    Once read and parsed, all block comments before top-level sections are to
     be found in the dictionary :attr:`sections`.
 
     .. doctest::
@@ -97,6 +106,7 @@ class YamlDocParser(object):
     Those lines are removed from the docstring but available as a dictionary
 
     """
+
     def __init__(self, filename):
         """.. rubric:: constructor
 
@@ -134,7 +144,7 @@ class YamlDocParser(object):
         :return: list of top level sections' names"""
 
         with open(self.filename, "r") as fh:
-            yaml = ruamel.yaml.YAML(typ='unsafe', pure=True)
+            yaml = ruamel.yaml.YAML(typ="unsafe", pure=True)
             data = yaml.load(fh.read())
         keys = list(data.keys())
         return keys
@@ -165,10 +175,10 @@ class YamlDocParser(object):
                 self.sections[current_section] = "".join(current_block)
                 current_block = []
                 current_section = None
-            elif this.startswith('#'):    # a comment at top level
+            elif this.startswith("#"):  # a comment at top level
                 current_block.append(this)
-            elif this.strip() == "":      # an empty line
-                #this was the main comment, or an isolated comment
+            elif this.strip() == "":  # an empty line
+                # this was the main comment, or an isolated comment
                 current_block = []
             else:  # a non-empty line to skip
                 current_block = []
@@ -189,10 +199,10 @@ class YamlDocParser(object):
             elif sum([this in line for this in self._specials]):
                 pass
             else:
-                if len(line)<2: # an empty line (to keep)
+                if len(line) < 2:  # an empty line (to keep)
                     docstring.append("")
                 else:
-                    docstring.append(line[2:]) # strip the "# "characters
+                    docstring.append(line[2:])  # strip the "# "characters
         docstring = "\n".join(docstring).strip()
         return docstring
 

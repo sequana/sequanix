@@ -30,7 +30,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets as QW
 from PyQt5.QtCore import Qt, QTemporaryDir
 from sequana import snaketools
-from sequanix.misc import YamlDocParser, on_cluster, rest2html
+from sequanix.utils import YamlDocParser, on_cluster, rest2html
 
 from .ui import Ui_MainWindow
 from .widgets import (
@@ -564,7 +564,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
         # if we are on one of those clusters, switch to the cluster choice in
         # the pipeline control combo box
-        if on_cluster(["tars-"]) is True:
+        if on_cluster() is True:
             self.ui.comboBox_local.setCurrentText("cluster")
 
         # connect show advanced button with the until/starting frame
@@ -963,7 +963,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
         snakemake_line = ["-s", snakefile, "--stat", "stats.txt", "-p"]
 
         if self.ui.comboBox_local.currentText() == "local":
-            if on_cluster(["tars-"]):
+            if on_cluster():
                 msg = WarningMessage(
                     (
                         "You are on TARS cluster. Please set the"
