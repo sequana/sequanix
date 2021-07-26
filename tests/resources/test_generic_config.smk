@@ -7,7 +7,7 @@
 # the number of letters and save it in count.txt file.
 #
 
-configfile: "config.yml"
+configfile: "test_generic_config.yml"
 N = int(config['N'])
 
 filename = "count.txt"

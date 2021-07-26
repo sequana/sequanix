@@ -1,10 +1,14 @@
-import setuptools
+from setuptools import setup, find_packages
 
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+# handle sequana git link
+with open("requirements.txt") as fh:
+    requirements = [req.rstrip() if not req.startswith("git+") else req.rstrip().split('egg=')[-1] for req in fh]
+
+setup(
     name="sequanix",
     version="0.0.1",
     author="Sequana Team",
@@ -20,9 +24,9 @@ setuptools.setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: Unix"
     ],
-    packages=[],
+    packages=find_packages(exclude=['tests*']),
     python_requires="==3.7.*",
-    install_requires=open("requirements.txt").read(),
+    install_requires=requirements,
     tests_requires=['pytest'],
     entry_points={
         'console_scripts': [

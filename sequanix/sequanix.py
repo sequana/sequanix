@@ -29,8 +29,7 @@ from optparse import OptionParser
 
 from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets as QW
-from PyQt5.Qt import QTemporaryDir, QMainWindow
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTemporaryDir
 from sequana import snaketools
 from sequana import misc
 from sequana.iotools import YamlDocParser
@@ -334,7 +333,7 @@ class GenericFactory(BaseFactory):
         return txt % (self.snakefile, self.configfile, self.directory, self.schemafile, self.multiqcconfigfile)
 
 
-class SequanixGUI(QMainWindow, Tools):
+class SequanixGUI(QW.QMainWindow, Tools):
     """
 
     If quiet, progress bar cannot work.
