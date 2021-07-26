@@ -5,5 +5,6 @@ PyQtWebEngine==5.15.4
 PyOpenGL==3.1.5
 PyOpenGL_accelerate==3.1.5
 qtconsole==5.1.1
-graphviz
+git+https://github.com/sequana/sequana.git@dev#egg=sequana
+snakemake>=6.0.0
 ipython
