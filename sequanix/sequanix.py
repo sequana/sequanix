@@ -25,14 +25,12 @@ import subprocess as sp
 import argparse
 import signal
 import pkg_resources
-from optparse import OptionParser
 
 from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets as QW
 from PyQt5.QtCore import Qt, QTemporaryDir
 from sequana import snaketools
-from sequana import misc
-from sequana.iotools import YamlDocParser
+from sequanix.utils import YamlDocParser, on_cluster, rest2html
 
 from .ui import Ui_MainWindow
 from .widgets import (
@@ -566,7 +564,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
         # if we are on one of those clusters, switch to the cluster choice in
         # the pipeline control combo box
-        if misc.on_cluster(["tars-"]) is True:
+        if on_cluster() is True:
             self.ui.comboBox_local.setCurrentText("cluster")
 
         # connect show advanced button with the until/starting frame
@@ -965,7 +963,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
         snakemake_line = ["-s", snakefile, "--stat", "stats.txt", "-p"]
 
         if self.ui.comboBox_local.currentText() == "local":
-            if misc.on_cluster(["tars-"]):
+            if on_cluster():
                 msg = WarningMessage(
                     (
                         "You are on TARS cluster. Please set the"
@@ -1143,7 +1141,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
                 rule_box.connect_all_option(lambda: self.ui.run_btn.setEnabled(False))
 
                 # Try to interpret it with sphinx
-                from sequana.misc import rest2html
 
                 try:
                     self.debug("parsing docstring of %s" % rule)
@@ -1233,7 +1230,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
         self.ui.progressBar.setRange(0, 1)
 
     def end_run(self):  # pragma: no cover
-        pal = self.ui.progressBar.palette()
         if self.ui.progressBar.value() >= 100:
             self._set_pb_color(self._colors["green"].name())
             self.info("Run done. Status: successful")
@@ -1654,54 +1650,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
     def clear_form(self):
         self.clear_layout(self.form)
-
-    """def _load_and_merge_config(self):
-
-        self.critical("Entering Load and Merge method")
-
-        config_file = self.working_dir + os.sep + os.path.basename(self.configfile)
-        if os.path.isfile(config_file) is False:
-            self.critical("load_and_merge: no config file present. Nothing to do")
-            return False
-
-        self.warning("A config file is present in the target directory")
-
-        # this should always work but who knows
-        try:
-            self.critical("load_and_merge: reading config file")
-            cfg = snaketools.SequanaConfig(config_file)
-            cfg.cleanup() # set all empty strings and %()s to None
-            config_dict = cfg.config
-        except Exception as err:
-            self.warning(err)
-            self.critical("Could not interpret the sequana config file")
-            return False
-
-        if set(self.config._yaml_code.keys()) == set(config_dict.keys()):
-            self.critical("load_and_merge:  config in directory same as input config. You may import it")
-            msg = QW.QMessageBox(
-                QW.QMessageBox.Question, "Question",
-                "A config file already exists in the working directory.\n" +
-                "%s.\n" % self.working_dir +
-                "Do you want to overwrite it ? (if not, the existing file is imported)?",
-                QW.QMessageBox.Yes | QW.QMessageBox.No,
-                self, Qt.Dialog | Qt.CustomizeWindowHint)
-            # Yes == 16384
-            if msg.exec_() != 16384:
-                self.critical('replacing config with content found in the directory')
-                print(config_dict)
-                self.config._yaml_code.update(config_dict)
-                self.create_base_form()
-                self.fill_until_starting() #self.rule_list)
-                return True
-            else:
-                self.critical('We will overwrite the existing file')
-                return False
-        else:
-            self.critical("The config file that already exists is different. Nothing done")
-            return False
-        return
-    """
 
     def eventFilter(self, source, event):
         """Inactivate wheel event of combobox"""

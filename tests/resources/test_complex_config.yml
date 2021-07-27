@@ -1,0 +1,87 @@
+# ============================================================================
+# Config file for RNA-seq
+#
+# ==================[ Sections for the users ]================================
+#
+# One of input_directory, input_pattern and input_samples must be provided
+# If input_directory provided, use it otherwise if input_pattern provided,
+# use it, otherwise use input_samples.
+# ============================================================================
+input_directory:
+input_readtag: _R[12]_
+input_pattern: '*fastq.gz'
+# =========================================== Sections for the users
+
+#############################################################################
+# Genome section:
+#
+# :Parameters:
+#
+# - aligner: either star, bowtie or bowtie2. 
+# - genome_directory: directory where all indexes are written.
+# - rRNA_contaminant: path to an existing fasta file for ribosomal RNA (to be found in
+#   genome_directory)
+# - rRNA_feature: if rRNA_contaminant is not provided, ribosomal RNA will be extract
+#     from GFF using this feature name. It must be found. 
+general:
+    aligner: salmon
+    genome_directory: Lepto
+    contaminant_file: ''
+    rRNA_feature: rRNA
+    custom_gff: ''
+
+
+
+#######################################################################
+# Quality trimming and adapter removal
+#
+# for cutadapt, please fill the fwd and rev fields if required. It can be a
+# string, or a filename. If a filename, it must be prefixed with "file:" to
+# specify that it is a file and not a string. If the tool is cutadapt, the empty
+# fwd and rev fields means that no adapters are to be used.
+#
+# :Parameters:
+#
+# - fwd: a string or file (prefixed with *file:*)
+# - m: 20 means discard trimmed reads that are shorter than 20.
+#         must be > 0
+# - quality: 0 means no trimming, 30 means keep base with quality
+#        above 30
+# - mode: must be set to one of
+#     - g for 5'
+#     - a for 3'
+#     - b for both 5'/3'
+# - rev: a string or file (prefixed with *file:*)
+# - tool: only cutadapt supported for now
+# - threads: number of threads to use (atropos only)
+# - options: See cutadapt documentation for details on
+#            cutadapt.readthedocs.io. We change the default value
+#            of -O to 6 (at least 6 bases are required to match before
+#            trimming of an adapter)
+#
+# tool_choice__ = ["atropos", "cutadapt", "fastp"]
+#
+# trim-n trims Ns at the end of the read
+cutadapt:
+    tool_choice: cutadapt
+    fwd: ''
+    rev: ''
+    m: 20                       # {"strict_min": 0}
+    mode: b                     # {"values": ["b","g","a"]}
+    options: -O 6 --trim-n
+    quality: 30                 # {"range": [0,40]}
+    threads: 4
+
+
+
+#######################################################
+# sofware__choice = ["atropos", "cutadapt", "fastp"]
+trimming:
+    software_choice: fastp
+    do: true
+
+
+salmon_mapping:
+    options: -l A
+    threads: 4
+
