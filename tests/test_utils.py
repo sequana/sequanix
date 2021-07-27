@@ -25,11 +25,3 @@ def test_yamldocparser():
     # this test is a real-test example to etst _get_specials methods 
     r = YamlDocParser(f"{test_dir}/resources/test_complex_config.yml")
     assert r._get_specials("cutadapt") ==  {'tool_choice': ['atropos', 'cutadapt', 'fastp']}
-
-
-
-
-
-
-
-

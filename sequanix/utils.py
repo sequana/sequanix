@@ -50,15 +50,11 @@ def on_cluster(cmds=["sbatch"]):
         result = subprocess.call(
             "type " + cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
-        if result == 0:
-            return True
-        else:
-            return False
+        return result == 0
 
     for cmd in cmds:
         if cmd_exists("sbatch"):
             return True
-            break
     return False
 
 
