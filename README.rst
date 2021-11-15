@@ -38,3 +38,9 @@ Notes
 ######
 
 Fix OpenGL for mac Big Sur: https://stackoverflow.com/a/64021312/11988671
+
+
+Installation
+############
+
+Please see the installation notes and installation steps on the https://sequana.readthedocs.io link.

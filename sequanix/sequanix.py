@@ -29,7 +29,7 @@ import pkg_resources
 from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets as QW
 from PyQt5.QtCore import Qt, QTemporaryDir
-from sequana import snaketools
+from sequana_pipetools import snaketools
 from sequanix.utils import YamlDocParser, on_cluster, rest2html
 
 from .ui import Ui_MainWindow
@@ -1332,7 +1332,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
         cfg = self.config
         cfg.config.update(form_dict)
         cfg._update_yaml()
-        cfg.cleanup()
         self.cfg = cfg
 
         pref = self.preferences_dialog.ui
@@ -1359,7 +1358,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
                 if retval in [16384, 2048]:
                     self.info("Saving config file (exist already)")
                     if checked_schema is False:
-                        cfg.save(yaml_path, cleanup=False)
+                        cfg.save(yaml_path)
                     else:
                         ret = self._check_and_save_config(cfg, yaml_path)
                         if ret is False:
@@ -1369,7 +1368,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
             else:
                 self.warning("Saving config file (does not exist)")
                 if checked_schema is False:
-                    cfg.save(yaml_path, cleanup=False)
+                    cfg.save(yaml_path)
                 else:
                     ret = self._check_and_save_config(cfg, yaml_path)
                     if ret is False:
@@ -1435,7 +1434,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
             with TempFile(suffix=".yaml") as fout:
                 # save a temporary version
-                cfg.save(fout.name, cleanup=False)
+                cfg.save(fout.name)
                 import ruamel
                 import warnings
                 from pykwalify.core import Core
@@ -1464,7 +1463,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
                     msg = WarningMessage(error_msg, self)
                     msg.exec_()
                     return False
-        cfg.save(yaml_path, cleanup=False)
+        cfg.save(yaml_path)
 
     def switch_off(self):
         self.debug("Switching RUN and DAG button off")
