@@ -6,7 +6,7 @@ import pytest
 from mock import patch
 from easydev import TempFile
 from PyQt5 import QtWidgets as QW
-from sequana import Module, SequanaConfig
+from sequana_pipetools import Module, SequanaConfig
 
 from sequanix.sequanix import SequanixGUI, Options
 
@@ -18,7 +18,7 @@ skiptravis = pytest.mark.skipif("TRAVIS_PYTHON_VERSION" in os.environ, reason="O
 
 @pytest.fixture
 def module():
-    return Module("quality_control")
+    return Module("pipeline:quality_control")
 
 
 def test_settings(qtbot):
@@ -168,10 +168,10 @@ def test_user_interface_sequana(qtbot):
     assert widget.form.count() == 0
 
     # simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("quality_control")
+    index = widget.sequana_factory._choice_button.findText("pipeline:quality_control")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("quality_control")
+    widget._update_sequana("pipeline:quality_control")
 
     # we should have the focus on the config file now
     assert widget.ui.tabs.currentIndex() == 2
@@ -235,12 +235,12 @@ def test_import_config_from_menu(qtbot):
     assert widget.sequana_factory._imported_config is None
     # while an existing config file should
     # First, we simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("quality_control")
+    index = widget.sequana_factory._choice_button.findText("pipeline:quality_control")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("quality_control")
+    widget._update_sequana("pipeline:quality_control")
 
-    qc = Module("quality_control")
+    qc = Module("pipeline:quality_control")
     widget.menuImportConfig(qc.config)
     assert widget.sequana_factory._imported_config is not None
 

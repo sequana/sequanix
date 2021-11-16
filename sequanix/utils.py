@@ -93,7 +93,7 @@ class YamlDocParser(object):
 
     .. doctest::
 
-        from sequana import snaketools
+        from sequana_pipetools import snaketools
         from sequanix.misc import YamlDocParser
         module = snaketools.Module('quality_control')
         r = YamlDocParser(module.config)
