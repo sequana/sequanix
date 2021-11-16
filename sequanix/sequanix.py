@@ -691,7 +691,8 @@ class SequanixGUI(QW.QMainWindow, Tools):
         # Set the level of the logging system
         pref = self.preferences_dialog.ui
         level = pref.preferences_options_general_logging_value.currentText()
-        level = getattr(colorlog.logging.logging, level)
+        #level = getattr(colorlog.logging.logging, level)
+        level = colorlog.getLogger().level
         colorlog.getLogger().setLevel(level)
 
     # ---------------------------------------------------------------
