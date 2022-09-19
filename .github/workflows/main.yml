@@ -6,6 +6,8 @@ on:
       - main
   pull_request:
     branches-ignore: []
+  schedule:
+    - cron: '0 0 * * SUN'
 
 jobs:
   build-linux:
@@ -25,7 +27,8 @@ jobs:
         sudo apt install graphviz
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt -r requirements_dev.txt
+        pip install .[testing]
+        pip install sequana_fastqc
         python setup.py install
     - name: Lint with flake8
       run: |
@@ -39,3 +42,10 @@ jobs:
         sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
         export DISPLAY=":1"
         pytest
+
+    - name: coveralls
+      run: |
+        pip install coveralls
+        coveralls --service=github
+      env:
+          GITHUB_TOKEN: ${{ github.token }}

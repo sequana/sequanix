@@ -18,7 +18,7 @@ skiptravis = pytest.mark.skipif("TRAVIS_PYTHON_VERSION" in os.environ, reason="O
 
 @pytest.fixture
 def module():
-    return Module("pipeline:quality_control")
+    return Module("pipeline:fastqc")
 
 
 def test_settings(qtbot):
@@ -168,14 +168,14 @@ def test_user_interface_sequana(qtbot):
     assert widget.form.count() == 0
 
     # simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("pipeline:quality_control")
+    index = widget.sequana_factory._choice_button.findText("pipeline:fastqc")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("pipeline:quality_control")
+    widget._update_sequana("pipeline:fastqc")
 
     # we should have the focus on the config file now
     assert widget.ui.tabs.currentIndex() == 2
-    assert widget.form.count() == 6
+    assert widget.form.count() == 5
     widget.clear_form()
     assert widget.form.count() == 0
 
@@ -220,7 +220,7 @@ def test_generic_copy_nodir(qtbot):
 
 def test_options():
     user_options = Options()
-    options = user_options.parse_args(["--pipeline", "quality_control"])
+    options = user_options.parse_args(["--pipeline", "fastqc"])
 
 
 def test_only(qtbot):
@@ -235,12 +235,12 @@ def test_import_config_from_menu(qtbot):
     assert widget.sequana_factory._imported_config is None
     # while an existing config file should
     # First, we simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("pipeline:quality_control")
+    index = widget.sequana_factory._choice_button.findText("pipeline:fastqc")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("pipeline:quality_control")
+    widget._update_sequana("pipeline:fastqc")
 
-    qc = Module("pipeline:quality_control")
+    qc = Module("pipeline:fastqc")
     widget.menuImportConfig(qc.config)
     assert widget.sequana_factory._imported_config is not None
 

@@ -10,7 +10,7 @@ with open("requirements.txt") as fh:
 
 setup(
     name="sequanix",
-    version="0.0.1",
+    version="0.1.0",
     author="Sequana Team",
     description="Sequanix is a graphical user interface (GUI) that can be used to run Snakemake workflows",
     long_description=long_description,
@@ -27,7 +27,30 @@ setup(
     packages=find_packages(exclude=['tests*']),
     python_requires="==3.7.*",
     install_requires=requirements,
-    tests_requires=['pytest'],
+    extras_require={
+        "testing": [
+            "pytest",
+            "pytest-cov",
+            "pytest-mock",
+            "pytest-qt",
+            "coveralls",
+        ],
+        "pipelines": [
+            "sequana_fastqc"
+        ],
+        "doc": [
+            "sphinx>=3",
+            "sphinx_rtd_theme",
+            "sequana_sphinxext",
+        ],
+    },
+
+
+
+
+
+
+
     entry_points={
         'console_scripts': [
             'sequanix=sequanix:main',
