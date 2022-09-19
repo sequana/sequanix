@@ -7,7 +7,8 @@ on:
   pull_request:
     branches-ignore: []
   schedule:
-    - cron: '0 0 * * SUN'
+    - cron: '0 0 13 * *'
+
 
 jobs:
   build-linux:
@@ -29,7 +30,6 @@ jobs:
       run: |
         pip install .[testing]
         pip install sequana_fastqc
-        python setup.py install
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -41,8 +41,7 @@ jobs:
       run: |
         sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
         export DISPLAY=":1"
-        pytest
-
+        pytest --cov-report term-missing --cov=sequanix
     - name: coveralls
       run: |
         pip install coveralls
