@@ -29,7 +29,6 @@ jobs:
       run: |
         pip install .[testing]
         pip install sequana_fastqc
-        python setup.py install
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -39,9 +38,10 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics --exclude sequanix/ui/
     - name: Test with pytest
       run: |
-        sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
-        export DISPLAY=":1"
-        pytest
+        #sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
+        #export DISPLAY=":1"
+        pytest --cov-report term-missing --cov=sequanix
+
 
     - name: coveralls
       run: |
