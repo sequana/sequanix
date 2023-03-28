@@ -1284,11 +1284,48 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
             msg.exec_()
             return
 
-        # Here we save the undefined section in the form.
-        if self._undefined_section in form_dict.keys():
-            for key, value in form_dict[self._undefined_section].items():
-                form_dict[key] = value
-            del form_dict[self._undefined_section]
+        # get samples names or input_directory
+        if self.mode == "sequana":
+            self.info("Sequana case")
+            flag1 = self.sequana_factory._sequana_directory_tab.get_filenames()
+            flag2 = self.sequana_factory._sequana_paired_tab.get_filenames()
+
+            if (
+                self.ui.tabWidget.currentIndex() == 0
+                and len(flag1) == 0
+                or self.ui.tabWidget.currentIndex() == 1
+                and len(flag2) == 0
+            ):
+                msg = WarningMessage("You must choose an input first.")
+                msg.exec_()
+                return
+
+            filename = self.sequana_factory._sequana_directory_tab.get_filenames()
+            form_dict["input_directory"] = filename
+
+            # If pattern provided, the input_directory is reset but used in
+            # the pattern as the basename
+            pattern = self.sequana_factory._sequana_pattern_lineedit.text()
+            if len(pattern.strip()):
+                form_dict["input_pattern"] = filename
+                form_dict["input_pattern"] += os.sep + pattern.strip()
+                form_dict["input_directory"] = ""
+
+            readtag = self.sequana_factory._sequana_readtag_lineedit.text()
+            if len(readtag.strip()):
+                form_dict["input_readtag"] = readtag
+            # By default, we do not want to add readtag but let the pipeline do the job
+            # sept 2022
+            #else:
+            #    form_dict["input_readtag"] = "_R[12]_"
+
+        elif self.mode == "generic":
+            # Here we save the undefined section in the form.
+            if self._undefined_section in form_dict.keys():
+                for key, value in form_dict[self._undefined_section].items():
+                    form_dict[key] = value
+                del form_dict[self._undefined_section]
+                self.info("Generic case")
 
         # Let us update the attribute with the content of the form
         # This uses the user's information
