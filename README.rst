@@ -63,6 +63,10 @@ Changelog
 ========= ==========================================================================
 Version   Description
 ========= ==========================================================================
+0.1.1     * all logo
+          * remove pin on python3.7
+          * remove automatic creation of readtag in config. we let the pipelines
+            handle it 
 0.1.0     * revamp Sequanix independently of Sequana
 ========= ==========================================================================
 

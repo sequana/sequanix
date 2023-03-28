@@ -1124,6 +1124,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
                 # Get any special keywords
                 specials = docparser._get_specials(rule)
+                logger.debug(f"In rule {rule} found {specials}")
 
                 # self.ui.preferences_options_general_addbrowser_value
                 dialog = self.preferences_dialog.ui
@@ -1316,8 +1317,10 @@ class SequanixGUI(QW.QMainWindow, Tools):
             readtag = self.sequana_factory._sequana_readtag_lineedit.text()
             if len(readtag.strip()):
                 form_dict["input_readtag"] = readtag
-            else:
-                form_dict["input_readtag"] = "_R[12]_"
+            # By default, we do not want to add readtag but let the pipeline do the job
+            # sept 2022
+            #else:
+            #    form_dict["input_readtag"] = "_R[12]_"
 
         elif self.mode == "generic":
             # Here we save the undefined section in the form.
@@ -1790,7 +1793,7 @@ def main(args=None):  # pragma: no cover
     # QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
     app = QW.QApplication(sys.argv)
 
-    filename = pkg_resources.resource_filename("sequanix", "media/drawing.png")
+    filename = pkg_resources.resource_filename("sequanix", "media/sequana_logo_circle_512.png")
 
     if options.nosplash:
         app.processEvents()
