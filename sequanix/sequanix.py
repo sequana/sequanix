@@ -26,9 +26,16 @@ import argparse
 import signal
 import pkg_resources
 
-from PyQt5 import QtCore, QtGui
-from PyQt5 import QtWidgets as QW
-from PyQt5.QtCore import Qt, QTemporaryDir
+from PySide6 import QtCore, QtGui
+from PySide6 import QtWidgets as QW
+from PySide6.QtCore import Qt, QTemporaryDir
+# Difference PyQt qnd Pyside
+if 'PySide6' in sys.modules:
+    print("using PySide6")
+    from PySide6.QtCore import Slot as pyqtSlot
+else:
+    from PyQt6.QtCore import pyqtSlot
+
 from sequana_pipetools import snaketools
 from sequanix.utils import YamlDocParser, on_cluster, rest2html
 
@@ -82,6 +89,8 @@ class BaseFactory(Tools):
         super(BaseFactory, self).__init__()
         self.mode = mode
         self._run_button = run_button
+
+        self.init_logger()
 
         # And finally the working directory
         self._directory_browser = FileBrowser(directory=True)
@@ -355,6 +364,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
     def __init__(self, parent=None, ipython=True, user_options={}):
         super(SequanixGUI, self).__init__(parent=parent)
+        super(Tools, self).__init__()
 
         colorlog.getLogger().setLevel("INFO")
         colorlog.info("Welcome to Sequana GUI (aka Sequanix)")
@@ -418,6 +428,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
         if isset(user_options, "pipeline"):  # pragma: no cover
             self.info("Setting Sequana pipeline %s " % user_options.pipeline)
             pipelines = self.sequana_factory.valid_pipelines
+
             if user_options.pipeline in pipelines:
                 index = self.ui.choice_button.findText(user_options.pipeline)
                 self.ui.choice_button.setCurrentIndex(index)
@@ -457,7 +468,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
         # We may have set some pipeline, snakefile, working directory
         self.create_base_form()
-        self.fill_until_starting()
+        #self.fill_until_starting()
 
     def initUI(self):
         # The logger is not yet set, so we use the module directly
@@ -482,10 +493,13 @@ class SequanixGUI(QW.QMainWindow, Tools):
                 + "Note also that you can use this interface as a shell \n"
                 + "command line interface preceding your command with ! character\n"
             )
-            # self.ipyConsole.printText("The variable 'foo' andion.")
-            self.ipyConsole.execute("from sequana import *")
-            self.ipyConsole.execute("import sequana")
-            self.ipyConsole.execute("")
+            try:
+                from sequana import FastQ
+                self.ipyConsole.execute("from sequana import *")
+                self.ipyConsole.execute("import sequana")
+            except ImportError:
+                pass
+            #self.ipyConsole.execute("")
             self.ipyConsole.pushVariables({"gui": self})
             self.ui.layout_ipython.addWidget(self.ipyConsole)
 
@@ -568,8 +582,8 @@ class SequanixGUI(QW.QMainWindow, Tools):
             self.ui.comboBox_local.setCurrentText("cluster")
 
         # connect show advanced button with the until/starting frame
-        self.ui.show_advanced_control.clicked.connect(self.click_advanced)
-        self.ui.frame_control.hide()
+        #self.ui.show_advanced_control.clicked.connect(self.click_advanced)
+        #self.ui.frame_control.hide()
 
     def _get_opacity(self):
         dialog = self.preferences_dialog
@@ -703,7 +717,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
         pipelines = sorted(snaketools.pipeline_names)
         pipelines = [this for this in pipelines if this not in self._to_exclude]
         self.ui.choice_button.addItems(pipelines)
-        self.ui.choice_button.activated[str].connect(self._update_sequana)
+        self.ui.choice_button.activated[int].connect(self._update_sequana)
 
         # FIXME do we want to use this ?
         self.ui.choice_button.installEventFilter(self)
@@ -736,13 +750,13 @@ class SequanixGUI(QW.QMainWindow, Tools):
         hlayout.addWidget(saf._sequana_pattern_lineedit)
         self.ui.layout_sequana_input_dir.addLayout(hlayout)
 
-    @QtCore.pyqtSlot(str)
+    @pyqtSlot(str)
     def _update_sequana(self, index):
         """Change options form when user changes the pipeline."""
-        if self.ui.choice_button.findText(index) == 0:
+        if self.ui.choice_button.findText(str(index)) == 0:
             self.clear_form()
             self.rule_list = []
-            self.fill_until_starting()
+            #self.fill_until_starting()
             return
 
         self.info("Reading sequana %s pipeline" % index)
@@ -754,7 +768,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
             dialog.snakemake_options_cluster_cluster__config_value.set_filenames(self.sequana_factory.clusterconfigfile)
         else:
             dialog.snakemake_options_cluster_cluster__config_value.set_filenames("")
-        self.fill_until_starting()
+        #self.fill_until_starting()
         self.switch_off()
         # Reset imported config file in SequanaFactory
         self.sequana_factory._imported_config = None
@@ -841,14 +855,14 @@ class SequanixGUI(QW.QMainWindow, Tools):
     # Snakemake related (config, running)
     # ----------------------------------------------------------------------
 
-    def fill_until_starting(self):
-        active_list = [w.get_name() for w in self.rule_list if w.get_do_rule()]
+    #def fill_until_starting(self):
+    #    active_list = [w.get_name() for w in self.rule_list if w.get_do_rule()]
 
-        self.ui.until_box.clear()
-        self.ui.until_box.addItems([None] + active_list)
+    #    self.ui.until_box.clear()
+    #    self.ui.until_box.addItems([None] + active_list)
 
-        self.ui.starting_box.clear()
-        self.ui.starting_box.addItems([None] + active_list)
+    #    self.ui.starting_box.clear()
+    #    self.ui.starting_box.addItems([None] + active_list)
 
     # ----------------------------------------------------------
     #  Config file related
@@ -864,11 +878,11 @@ class SequanixGUI(QW.QMainWindow, Tools):
     # --------------------------------------------------------------------
     #  Advanced control
     # --------------------------------------------------------------------
-    def click_advanced(self):
-        if self.ui.frame_control.isHidden():
-            self.ui.frame_control.show()
-        else:
-            self.ui.frame_control.hide()
+    #def click_advanced(self):
+    #    if self.ui.frame_control.isHidden():
+    #        self.ui.frame_control.show()
+    #    else:
+    #        self.ui.frame_control.hide()
 
     # --------------------------------------------------------------------
     # Others
@@ -940,8 +954,8 @@ class SequanixGUI(QW.QMainWindow, Tools):
                 else:
                     self.output.append('<font style="color:green">' + line + "</font>")
 
-    def get_until_starting_option(self):
-        """Return list with starting rule and end rule."""
+    """def get_until_starting_option(self):
+        "Return list with starting rule and end rule."
         until_rule = self.ui.until_box.currentText()
         starting_rule = self.ui.starting_box.currentText()
         option = []
@@ -950,6 +964,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
         if starting_rule:
             option += ["-R", starting_rule]
         return option
+    """
 
     def _get_snakemake_command(self, snakefile):  # pragma: no cover
         """If the cluster option is selected, then the cluster field in
@@ -961,14 +976,16 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
         """
         dialog = self.snakemake_dialog  # an alias
-        snakemake_line = ["-s", snakefile, "--stat", "stats.txt", "-p"]
+        # let us remove --stat stats.txt to make it simple (v0.2)
+        #snakemake_line = ["-s", snakefile, "--stat", "stats.txt", "-p"]
+        snakemake_line = ["-s", snakefile, "-p"]
 
         if self.ui.comboBox_local.currentText() == "local":
             if on_cluster():
                 msg = WarningMessage(
                     (
-                        "You are on TARS cluster. Please set the"
-                        "batch options and select the cluster option (not local)"
+                        "You are on a SLURM scheduler. Please set the"
+                        "sbatch options and select the cluster option (not local)"
                     )
                 )
                 msg.exec_()
@@ -995,8 +1012,31 @@ class SequanixGUI(QW.QMainWindow, Tools):
             #    snakemake_line += ["--cluster-config", cluster_config]
 
         snakemake_line += dialog.get_snakemake_general_options()
-        snakemake_line += self.get_until_starting_option()
+        #snakemake_line += self.get_until_starting_option()
 
+        # add --wrapper option if any provided in the preferences dialog
+        snakemake_line += self._get_wrapper()
+
+        # apptainers
+        action_apptainer = self.ui.action_apptainer
+        if action_apptainer.isChecked():
+            snakemake_line += ["--use-singularity"]
+            if self.mode == "sequana":
+                prefix = self.preferences_dialog.ui.preferences_options_sequana_apptainer_value.text()
+                if prefix.strip():
+                    snakemake_line += f"--singularity-prefix {prefix}".split()
+                args = self.preferences_dialog.ui.preferences_options_sequana_apptainer_args_value.text()
+                if args.strip():
+                    snakemake_line += f"--singularity-args {args}".split()
+            else:
+                prefix = self.preferences_dialog.ui.preferences_options_general_apptainer_value.text()
+                if prefix.strip():
+                    snakemake_line += f"--singularity-prefix {prefix}".split()
+                args = self.preferences_dialog.ui.preferences_options_general_apptainer_args_value.text()
+                if args.strip():
+                    snakemake_line += f"--singularity-args {args}".split()
+
+        # other options provided in the dialog
         others = self.snakemake_dialog.ui.snakemake_options_general_custom.text()
         if others.strip():
             snakemake_line += others.split()
@@ -1006,6 +1046,31 @@ class SequanixGUI(QW.QMainWindow, Tools):
             snakemake_line += ["--configfile", configfile]
 
         return snakemake_line
+
+    def _get_wrapper(self):
+
+        # by default, no wrapper used
+        snakemake_cmd = []
+
+        # add --wrapper option if any provided in the preferences dialog
+        if self.mode == "sequana":
+            # for sequana, we use it anyway.
+            wrapper = self.preferences_dialog.ui.preferences_options_sequana_wrapper_value.text()
+            wrapper = wrapper.strip()
+            if wrapper:
+                if not wrapper.endswith("/"):
+                    wrapper += "/"
+                snakemake_cmd += f"--wrapper-prefix {wrapper}".split()
+        else:
+            # for other generic pipeline, we use it if provided
+            wrapper = self.preferences_dialog.ui.preferences_options_general_wrapper_value.text()
+            wrapper = wrapper.strip()
+            if wrapper:
+                if not wrapper.endswith("/"):
+                    wrapper += "/"
+                snakemake_cmd += f"--wrapper-prefix {wrapper}".split()
+
+        return snakemake_cmd
 
     def _set_pb_color(self, color):
         self.ui.progressBar.setStyleSheet(
@@ -1041,7 +1106,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
             self.warning("Set the working directory first")
             return
 
-        # We copy the sequana and genereic snakefile into a filename called
+        # We copy the sequana and generic snakefile into a filename called
         # Snakefile
         snakefile = self.working_dir + os.sep + os.path.basename(self.snakefile)
 
@@ -1155,7 +1220,7 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
                 self.form.addWidget(rule_box)
                 self.rule_list.append(rule_box)
-                rule_box.connect_do(self.fill_until_starting)
+                #rule_box.connect_do(self.fill_until_starting)
             else:
                 # this is a parameter in a section, which may be
                 # a list, a None or something else
@@ -1185,20 +1250,25 @@ class SequanixGUI(QW.QMainWindow, Tools):
         # http://stackoverflow.com/questions/8232544/how-to-terminate-a-process-without-os-kill-osgeo4w-python-2-5
 
         if self.process.state() != 0:
+            try: #PyQt
+                pid = self.process.pid()
+            except AttributeError:
+                self.process.pid = self.process.processId
             pid = self.process.pid()
-            self.warning("Process {} running , stopping it... ".format(pid))
+
+            self.warning(f"Process {pid} running , stopping it... ")
             # We must use a ctrl+C interruption so that snakemake
             # handles the interruption smoothly. However, child processes
             # are lost so we also need to get their IDs and kill them.
             self.info("killing the main snakemake process. This may take a few seconds ")
             try:
-                self.info("process pid={} being killed".format(self.process.pid()))
+                self.info(f"process pid={pid} being killed")
                 pid_children = [this.pid for this in psutil.Process(pid).children(recursive=True)]
                 # Kills the main process
                 os.kill(pid, signal.SIGINT)
                 # And the children
                 for this in pid_children:  # pragma: no cover
-                    self.info("Remove pid {} ".format(this))
+                    self.info(f"Remove pid {this} ")
                     try:
                         os.kill(this, signal.SIGINT)
                     except Exception as err:
@@ -1347,7 +1417,10 @@ class SequanixGUI(QW.QMainWindow, Tools):
             if self.mode == "sequana":
                 yaml_path = self.working_dir + os.sep + "config.yaml"
                 self.warning("copy requirements (if any)")
-                cfg.copy_requirements(target=self.working_dir)
+                try:
+                    cfg.copy_requirements(target=self.working_dir)
+                except AttributeError:
+                    pass
             elif self.mode == "generic":
                 yaml_path = os.sep.join((self.working_dir, os.path.basename(self.generic_factory.configfile)))
 
@@ -1572,11 +1645,12 @@ class SequanixGUI(QW.QMainWindow, Tools):
         snakefile = os.path.basename(self.snakefile)
         snakemake_line = ["snakemake", "-s", snakefile]
         snakemake_line += ["--rulegraph"]
+        snakemake_line += self._get_wrapper()
         if self.mode == "generic" and self.configfile:
             # make sure to copy the config file
             snakemake_line += ["--configfile"]
             snakemake_line += [os.path.basename(self.generic_factory.configfile)]
-        snakemake_line += self.get_until_starting_option()
+        #snakemake_line += self.get_until_starting_option()
 
         # Where to save the SVG (temp directory)
         svg_filename = self._tempdir.path() + os.sep + "test.svg"
@@ -1748,7 +1822,7 @@ class Options(argparse.ArgumentParser):
         group.add_argument("-n", "--no-splash", dest="nosplash", action="store_true", help="No splash screen")
 
         group = self.add_argument_group("SEQUANA")
-        group.add_argument("-p", "--pipeline", dest="pipeline", default=None, help="A valid sequana pipeline name")
+        group.add_argument("-p", "--pipeline", dest="pipeline", default=None,  help="A valid sequana pipeline name e.g., multitax, lora, variant_calling")
 
         group_mut = group.add_mutually_exclusive_group()
         group_mut.add_argument(
@@ -1787,6 +1861,8 @@ def main(args=None):  # pragma: no cover
         args = sys.argv[:]
     user_options = Options()
     options = user_options.parse_args(args[1:])
+    if options.pipeline and not options.pipeline.startswith("pipeline:"):
+        options.pipeline = f"pipeline:{options.pipeline}"
 
     signal.signal(signal.SIGINT, sigint_handler)
 

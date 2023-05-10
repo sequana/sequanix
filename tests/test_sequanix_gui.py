@@ -175,7 +175,7 @@ def test_user_interface_sequana(qtbot):
 
     # we should have the focus on the config file now
     assert widget.ui.tabs.currentIndex() == 2
-    assert widget.form.count() == 5
+    assert widget.form.count() == 6
     widget.clear_form()
     assert widget.form.count() == 0
 

@@ -1,5 +1,5 @@
 """Sequana GUI. Can also be used for any snakemake pipeline"""
-from PyQt5 import QtWidgets as QW
+from PySide6 import QtWidgets as QW
 
 from sequanix.ui import Ui_Help
 

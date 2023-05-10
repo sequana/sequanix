@@ -18,9 +18,9 @@
 ##############################################################################
 import os
 
-from PyQt5 import QtCore
-from PyQt5 import QtWidgets as QW
-from PyQt5.QtSvg import QSvgWidget
+from PySide6 import QtCore
+from PySide6 import QtWidgets as QW
+from PySide6.QtSvgWidgets import QSvgWidget
 
 from .file_browser import FileBrowser
 

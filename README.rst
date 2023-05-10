@@ -56,6 +56,11 @@ For developers, use::
     pip install -e .[testing]
 
 
+Design choice
+#############
+
+Uses PySide6 from v0.2.0. See e.g., https://www.pythonguis.com/faq/pyqt6-vs-pyside6/ from information
+on the switch to PySide6. In brief, the Qt project has recently adopted PySide as the official Qt for Python release which should ensure its viability going forward. When we migrate PyQt5 to PyQt6, we therefore decided to use PySide instead of PyQt.
 
 Changelog
 ~~~~~~~~~
@@ -63,10 +68,11 @@ Changelog
 ========= ==========================================================================
 Version   Description
 ========= ==========================================================================
-0.1.1     * all logo
+0.2.0     * add logo
           * remove pin on python3.7
+          * switch from PyQt5 to PySide6
           * remove automatic creation of readtag in config. we let the pipelines
-            handle it 
+            handle it
 0.1.0     * revamp Sequanix independently of Sequana
 ========= ==========================================================================
 

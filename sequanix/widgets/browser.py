@@ -1,13 +1,18 @@
-from PyQt5 import QtCore, Qt
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage, QWebEngineSettings
-
+from PySide6 import QtCore
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QLineEdit
+from PySide6.QtWebEngineWidgets import *
+# QWebEngineSettings
+#from PyQt6.WebEngine import QWebEngineView
 
 # potential resources for improvements:
 # https://github.com/ralsina/devicenzo/blob/master/devicenzo.py
 
+from PySide6.QtWidgets import QMainWindow
 
-class Browser(Qt.QMainWindow):
+from PySide6.QtWebEngineCore import QWebEnginePage
+
+class Browser(QMainWindow):
     """
 
     On purpose, there is no caching so that (if re-generated), the
@@ -16,7 +21,7 @@ class Browser(Qt.QMainWindow):
     """
 
     def __init__(self, url):
-        Qt.QMainWindow.__init__(self)
+        QMainWindow.__init__(self)
 
         # Progress bar
         # ------------------------------------------------------------

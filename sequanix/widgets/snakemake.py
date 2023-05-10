@@ -19,8 +19,8 @@
 """Snakemake Dialog for the main GUI application"""
 import multiprocessing
 
-from PyQt5 import QtWidgets as QW
-from PyQt5 import QtCore
+from PySide6 import QtWidgets as QW
+from PySide6 import QtCore
 
 # Just to check the version
 from packaging.version import Version

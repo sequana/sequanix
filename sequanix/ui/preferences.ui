@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>366</height>
+    <width>546</width>
+    <height>407</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_general">
         <attribute name="title">
@@ -82,7 +82,7 @@
              </property>
              <item>
               <property name="text">
-               <string>pyqt5</string>
+               <string>pyqt/pyside</string>
               </property>
              </item>
              <item>
@@ -163,12 +163,9 @@
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you already know what HTML page you will open, set its filename here to open it automatically. when you click on &lt;span style=&quot; font-style:italic;&quot;&gt;Open Report&lt;/span&gt; button.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>multi_summary.html</string>
+              <string>summary.html</string>
              </property>
             </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="preferences_options_general_addbrowser_value"/>
            </item>
            <item row="4" column="0">
             <widget class="QLabel" name="label_2">
@@ -179,6 +176,9 @@
               <string>Form browser keywords</string>
              </property>
             </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="preferences_options_general_addbrowser_value"/>
            </item>
            <item row="5" column="0">
             <widget class="QCheckBox" name="preferences_options_general_tooltip_value">
@@ -199,6 +199,117 @@
               <string>Check config with schema</string>
              </property>
             </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the location of the wrappers. Could be an official github repository or a fork. could also be a local copy. If so, it should be set a as e.g. &lt;span style=&quot; font-weight:600;&quot;&gt;git+file://path_to_local_copy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Keep empty if not used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>wrapper URL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QLineEdit" name="preferences_options_general_wrapper_value">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the location of the wrappers. Could be an official github repository or a fork. could also be a local copy. If so, it should be set a as e.g. &lt;span style=&quot; font-weight:600;&quot;&gt;git+file://path_to_local_copy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Keep empty if not used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the path to the directory that will store the apptainer images. If empty, apptainers are downloaded in the .snakemake local directory where the pipeline is launched.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>apptainer_prefix</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QLineEdit" name="preferences_options_general_apptainer_value">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the path to the directory that will store the apptainer images. If empty, apptainers are downloaded in the .snakemake local directory where the pipeline is launched.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>apptainer_options</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <widget class="QLineEdit" name="preferences_options_general_apptainer_args_value"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_sequana">
+        <attribute name="title">
+         <string>Sequana</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QFormLayout" name="formLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="wrapperURLLabel">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the location of the sequana wrappers. Could be the official github repository or a fork. could also be a local copy. If so, it should be set a as e.g. &lt;span style=&quot; font-weight:600;&quot;&gt;git+file://path_to_local_copy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The official github repository is :&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;https://raw.githubusercontent.com/sequana/sequana-wrappers/&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Note the trailing /&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>wrapper URL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="preferences_options_sequana_wrapper_value">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the location of the sequana wrappers. Could be the official github repository or a fork. could also be a local copy. If so, it should be set a as e.g. &lt;span style=&quot; font-weight:600;&quot;&gt;git+file://path_to_local_copy&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The official github repository is :&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;https://raw.githubusercontent.com/sequana/sequana-wrappers/&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Note the trailing /&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>https://raw.githubusercontent.com/sequana/sequana-wrappers/</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="preferences_options_sequana_apptainer_value">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the path to the directory that will store the apptainer images. If empty, apptainers are downloaded in the .snakemake local directory where the pipeline is launched.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>~/.config/sequana/images</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the path to the directory that will store the apptainer images. If empty, apptainers are downloaded in the .snakemake local directory where the pipeline is launched.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>apptainer prefix</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>apptainer_options</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="preferences_options_sequana_apptainer_args_value"/>
            </item>
           </layout>
          </item>

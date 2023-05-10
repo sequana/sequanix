@@ -203,7 +203,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>167</height>
+          <height>200</height>
          </size>
         </property>
         <property name="toolTip">
@@ -493,7 +493,7 @@
                <enum>QTabWidget::Rounded</enum>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>2</number>
               </property>
               <property name="documentMode">
                <bool>false</bool>
@@ -999,83 +999,24 @@
         <property name="title">
          <string>Pipeline control</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_15" columnstretch="1,0,2">
+        <layout class="QGridLayout" name="gridLayout_15" columnstretch="1,0">
          <item row="0" column="0">
-          <widget class="QFrame" name="frame">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+          <widget class="QCheckBox" name="action_apptainer">
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>21</height>
+            </size>
            </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your pipeline sets apptainers (a.k.a singularity) and you want to use them, tick this box. Strongly advice for Sequana pipelines so that there is no need to install third-party standalones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_17">
-            <item row="1" column="0">
-             <widget class="QFrame" name="frame_control">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_16">
-               <item row="1" column="1">
-                <layout class="QFormLayout" name="formLayout">
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>Starting</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QComboBox" name="starting_box"/>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QComboBox" name="until_box">
-                   <property name="editable">
-                    <bool>false</bool>
-                   </property>
-                   <property name="currentText">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>Until</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="show_advanced_control">
-              <property name="text">
-               <string>show advanced control</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <property name="text">
+            <string>Use singularity/apptainer</string>
+           </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="2">
           <widget class="QFrame" name="frame_3">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1137,7 +1078,7 @@
                    <enum>QFrame::Box</enum>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please, Check the snakemake dialog (&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+O&lt;/span&gt;) to set the number of nodes in the local or cluster tabs and cluster options.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check the snakemake dialog (&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+O&lt;/span&gt;) to set the number of nodes/jobs, and cluster options.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
@@ -1303,7 +1244,7 @@ Color code:
                <x>0</x>
                <y>0</y>
                <width>595</width>
-               <height>160</height>
+               <height>211</height>
               </rect>
              </property>
             </widget>
@@ -1462,6 +1403,9 @@ border-radius: 5px;
 text-align: center;
 </string>
         </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
         <property name="value">
          <number>1</number>
         </property>
@@ -1477,7 +1421,7 @@ text-align: center;
      <x>0</x>
      <y>0</y>
      <width>647</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1590,7 +1534,6 @@ text-align: center;
  <tabstops>
   <tabstop>tabs_pipeline</tabstop>
   <tabstop>choice_button</tabstop>
-  <tabstop>starting_box</tabstop>
   <tabstop>tabs</tabstop>
   <tabstop>run_btn</tabstop>
   <tabstop>stop_btn</tabstop>

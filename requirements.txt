@@ -1,11 +1,10 @@
 colorlog
-PyQt5==5.15.4
-PyQt5-sip<13,>=12.8
-PyQt5-Qt5==5.15.2
+PySide6
+PySide6-Essentials
 PyQtWebEngine==5.15.4
 PyOpenGL==3.1.5
 PyOpenGL_accelerate==3.1.5
-qtconsole==5.1.1
+qtconsole>=5.4.1
 snakemake>=6.0.0
 sequana_pipetools
 ipython

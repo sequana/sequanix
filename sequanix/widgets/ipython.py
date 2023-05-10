@@ -12,7 +12,7 @@ class QIPythonWidget(RichJupyterWidget):
     def __init__(self, customBanner=None, *args, **kwargs):
         if customBanner != None:
             self.banner = customBanner
-        super(QIPythonWidget, self).__init__(*args, **kwargs)
+        super(RichJupyterWidget, self).__init__(*args, **kwargs)
         self.kernel_manager = kernel_manager = QtInProcessKernelManager()
         kernel_manager.start_kernel()
         kernel_manager.kernel.gui = "qt4"
