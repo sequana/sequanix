@@ -4,11 +4,7 @@ import shutil
 
 from PySide6 import QtWidgets as QW
 from PySide6 import QtCore
-
-if 'PySide6' in sys.modules:
-    from PySide6.QtCore import Signal as pyqtSignal
-else:
-    from PyQt6.QtCore import pyqtSignal
+from PySide6.QtCore import Signal as pyqtSignal
 
 
 __all__ = ["Logger", "Tools", "QPlainTextEditLogger"]

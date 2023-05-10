@@ -185,7 +185,7 @@ def test_user_interface_sequana(qtbot):
 
 
 def test_others(qtbot, mocker):
-    widget = SequanixGUI(ipython=True)
+    widget = SequanixGUI(ipython=False)
     qtbot.addWidget(widget)
     # level and pipeline attribute
     widget.set_level()
@@ -230,7 +230,7 @@ def test_only(qtbot):
 
 
 def test_import_config_from_menu(qtbot):
-    widget = SequanixGUI(ipython=True)
+    widget = SequanixGUI(ipython=False)
     qtbot.addWidget(widget)
     assert widget.sequana_factory._imported_config is None
     # while an existing config file should

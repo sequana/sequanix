@@ -1,16 +1,13 @@
 from PySide6 import QtCore
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QLineEdit
+from PySide6.QtGui import QShortcut
+from PySide6.QtWebEngineCore import QWebEnginePage, QWebEngineSettings
 from PySide6.QtWebEngineWidgets import *
-# QWebEngineSettings
-#from PyQt6.WebEngine import QWebEngineView
+from PySide6.QtWidgets import QLineEdit, QMainWindow
 
 # potential resources for improvements:
 # https://github.com/ralsina/devicenzo/blob/master/devicenzo.py
 
-from PySide6.QtWidgets import QMainWindow
-
-from PySide6.QtWebEngineCore import QWebEnginePage
 
 class Browser(QMainWindow):
     """
@@ -28,7 +25,7 @@ class Browser(QMainWindow):
         self.progress = 0
         # Main page QWebView
         # -------------------------------------------------------------
-        self.wb = SequanixQWebView(parent=self, titleChanged=self.setWindowTitle)
+        self.wb = SequanixQWebView(parent=self)
         self.wb.urlChanged.connect(lambda u: self.url.setText(u.toString()))
 
         self.wb.titleChanged.connect(self.adjustTitle)
@@ -67,16 +64,16 @@ class Browser(QMainWindow):
 
         # The shortcuts
         # ---------------------------------------------------------
-        self.showSearch = Qt.QShortcut("Ctrl+F", self, activated=lambda: (self.search.show(), self.search.setFocus()))
-        self.hideSearch = Qt.QShortcut("Esc", self, activated=lambda: (self.search.hide(), self.wb.setFocus()))
-        self.quit = Qt.QShortcut("Ctrl+Q", self, activated=self.close)
-        self.zoomIn = Qt.QShortcut("Ctrl++", self, activated=lambda: self.wb.setZoomFactor(self.wb.zoomFactor() + 0.2))
-        self.zoomOut = Qt.QShortcut("Ctrl+-", self, activated=lambda: self.wb.setZoomFactor(self.wb.zoomFactor() - 0.2))
-        self.zoomOne = Qt.QShortcut("Ctrl+=", self, activated=lambda: self.wb.setZoomFactor(1))
+        self.showSearch = QShortcut("Ctrl+F", self, activated=lambda: (self.search.show(), self.search.setFocus()))
+        self.hideSearch = QShortcut("Esc", self, activated=lambda: (self.search.hide(), self.wb.setFocus()))
+        self.quit = QShortcut("Ctrl+Q", self, activated=self.close)
+        self.zoomIn = QShortcut("Ctrl++", self, activated=lambda: self.wb.setZoomFactor(self.wb.zoomFactor() + 0.2))
+        self.zoomOut = QShortcut("Ctrl+-", self, activated=lambda: self.wb.setZoomFactor(self.wb.zoomFactor() - 0.2))
+        self.zoomOne = QShortcut("Ctrl+=", self, activated=lambda: self.wb.setZoomFactor(1))
 
         # Add alt+left and right keys to navigate backward and forward
-        Qt.QShortcut(QtCore.Qt.AltModifier + QtCore.Qt.Key_Left, self, activated=lambda: self.wb.back())
-        Qt.QShortcut(QtCore.Qt.AltModifier + QtCore.Qt.Key_Right, self, activated=lambda: self.wb.forward())
+        QShortcut(QtCore.Qt.AltModifier | QtCore.Qt.Key_Left, self, activated=lambda: self.wb.back())
+        QShortcut(QtCore.Qt.AltModifier | QtCore.Qt.Key_Right, self, activated=lambda: self.wb.forward())
 
         # Add components on the page
         self.sb.addPermanentWidget(self.search)
@@ -114,12 +111,9 @@ class SequanixQWebView(QWebEngineView):
 
         # Javascript and other settings
         # ------------------------------------------------------------
-        try:
-            self.settings().setAttribute(QWebEngineSettings.JavascriptCanOpenWindows, True)
-            self.settings().setAttribute(QWebEngineSettings.LocalStorageEnabled, True)
-            self.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
-        except:
-            print("QtWebKit.QWebSettings not available for you PyQt version")
+        self.settings().setAttribute(QWebEngineSettings.JavascriptCanOpenWindows, True)
+        self.settings().setAttribute(QWebEngineSettings.LocalStorageEnabled, True)
+        self.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)
 
     def createWindow(self, type):
         """Handle requests for a new browser window.

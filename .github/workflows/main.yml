@@ -18,14 +18,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
+    - name: Set up Python '3.9'
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: '3.9'
     - name: Setup ubuntu
       run: |
         sudo apt install xvfb libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0
         sudo apt install graphviz
+        sudo apt install libgl1 libgl1-mesa-glx libegl1
     - name: Install dependencies
       run: |
         pip install .[testing]
@@ -41,7 +42,9 @@ jobs:
       run: |
         sudo Xvfb :1 -screen 0 1024x768x24 </dev/null &
         export DISPLAY=":1"
+        export QT_DEBUG_PLUGINS=1
         pytest --cov-report term-missing --cov=sequanix
+
     - name: coveralls
       run: |
         pip install coveralls

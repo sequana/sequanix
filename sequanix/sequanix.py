@@ -29,12 +29,7 @@ import pkg_resources
 from PySide6 import QtCore, QtGui
 from PySide6 import QtWidgets as QW
 from PySide6.QtCore import Qt, QTemporaryDir
-# Difference PyQt qnd Pyside
-if 'PySide6' in sys.modules:
-    print("using PySide6")
-    from PySide6.QtCore import Slot as pyqtSlot
-else:
-    from PyQt6.QtCore import pyqtSlot
+from PySide6.QtCore import Slot as pyqtSlot
 
 from sequana_pipetools import snaketools
 from sequanix.utils import YamlDocParser, on_cluster, rest2html
@@ -468,7 +463,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
         # We may have set some pipeline, snakefile, working directory
         self.create_base_form()
-        #self.fill_until_starting()
 
     def initUI(self):
         # The logger is not yet set, so we use the module directly
@@ -580,10 +574,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
         # the pipeline control combo box
         if on_cluster() is True:
             self.ui.comboBox_local.setCurrentText("cluster")
-
-        # connect show advanced button with the until/starting frame
-        #self.ui.show_advanced_control.clicked.connect(self.click_advanced)
-        #self.ui.frame_control.hide()
 
     def _get_opacity(self):
         dialog = self.preferences_dialog
@@ -756,7 +746,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
         if self.ui.choice_button.findText(str(index)) == 0:
             self.clear_form()
             self.rule_list = []
-            #self.fill_until_starting()
             return
 
         self.info("Reading sequana %s pipeline" % index)
@@ -768,7 +757,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
             dialog.snakemake_options_cluster_cluster__config_value.set_filenames(self.sequana_factory.clusterconfigfile)
         else:
             dialog.snakemake_options_cluster_cluster__config_value.set_filenames("")
-        #self.fill_until_starting()
         self.switch_off()
         # Reset imported config file in SequanaFactory
         self.sequana_factory._imported_config = None
@@ -851,19 +839,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
     working_dir = property(_get_working_dir)
 
-    # ----------------------------------------------------------------------
-    # Snakemake related (config, running)
-    # ----------------------------------------------------------------------
-
-    #def fill_until_starting(self):
-    #    active_list = [w.get_name() for w in self.rule_list if w.get_do_rule()]
-
-    #    self.ui.until_box.clear()
-    #    self.ui.until_box.addItems([None] + active_list)
-
-    #    self.ui.starting_box.clear()
-    #    self.ui.starting_box.addItems([None] + active_list)
-
     # ----------------------------------------------------------
     #  Config file related
     # ---------------------------------------------------------
@@ -874,15 +849,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
             self.ui.tabs.setCurrentIndex(3)
         else:
             self.ui.tabs.setCurrentIndex(2)
-
-    # --------------------------------------------------------------------
-    #  Advanced control
-    # --------------------------------------------------------------------
-    #def click_advanced(self):
-    #    if self.ui.frame_control.isHidden():
-    #        self.ui.frame_control.show()
-    #    else:
-    #        self.ui.frame_control.hide()
 
     # --------------------------------------------------------------------
     # Others
@@ -954,18 +920,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
                 else:
                     self.output.append('<font style="color:green">' + line + "</font>")
 
-    """def get_until_starting_option(self):
-        "Return list with starting rule and end rule."
-        until_rule = self.ui.until_box.currentText()
-        starting_rule = self.ui.starting_box.currentText()
-        option = []
-        if until_rule:
-            option += ["--no-hooks", "-U", until_rule]
-        if starting_rule:
-            option += ["-R", starting_rule]
-        return option
-    """
-
     def _get_snakemake_command(self, snakefile):  # pragma: no cover
         """If the cluster option is selected, then the cluster field in
         the snakemake menu must be set to a string different from empty string.
@@ -1012,7 +966,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
             #    snakemake_line += ["--cluster-config", cluster_config]
 
         snakemake_line += dialog.get_snakemake_general_options()
-        #snakemake_line += self.get_until_starting_option()
 
         # add --wrapper option if any provided in the preferences dialog
         snakemake_line += self._get_wrapper()
@@ -1220,7 +1173,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
 
                 self.form.addWidget(rule_box)
                 self.rule_list.append(rule_box)
-                #rule_box.connect_do(self.fill_until_starting)
             else:
                 # this is a parameter in a section, which may be
                 # a list, a None or something else
@@ -1650,7 +1602,6 @@ class SequanixGUI(QW.QMainWindow, Tools):
             # make sure to copy the config file
             snakemake_line += ["--configfile"]
             snakemake_line += [os.path.basename(self.generic_factory.configfile)]
-        #snakemake_line += self.get_until_starting_option()
 
         # Where to save the SVG (temp directory)
         svg_filename = self._tempdir.path() + os.sep + "test.svg"
