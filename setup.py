@@ -33,6 +33,7 @@ setup(
             "pytest-cov",
             "pytest-mock",
             "pytest-qt",
+            #"pytest-xvfb", # issue on CI action and locally with X11 connection broke and core dump
             "coveralls",
         ],
         "pipelines": [

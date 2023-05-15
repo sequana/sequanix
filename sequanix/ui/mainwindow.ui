@@ -203,7 +203,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>200</height>
+          <height>160</height>
          </size>
         </property>
         <property name="toolTip">
@@ -481,7 +481,7 @@
                </palette>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Left tab:&lt;/span&gt; Select one of the pipeline in the combo box. In order to get information about a pipeline, please see the Help menu. &lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Middle tab:&lt;/span&gt; Select one of this option&lt;/li&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Input directory: the directory where fastq.gz files are stored (all Sequana pipelines expect fastq.gz as input)&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Input samples: select one or two files (fastq.gz) in a directory&lt;/li&gt;&lt;/ol&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Right tab: &lt;/span&gt;Select working directory where Snakefile/pipeline and config files will be copied. Pipelines are also ran in that directory. &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1. Select one of the pipeline in the 'pipeline selection'. Its config file will appear in the bottom section. &lt;/p&gt;&lt;p&gt;2. Select the working directory, which is the directory where the pipeline and its config file will be copy and where the analysis will be run&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color:#ffeedd</string>
@@ -493,7 +493,7 @@
                <enum>QTabWidget::Rounded</enum>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>1</number>
               </property>
               <property name="documentMode">
                <bool>false</bool>
@@ -813,74 +813,9 @@
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="sequana_input_dir_tab">
-               <attribute name="title">
-                <string>2 - Input data (directory or files)</string>
-               </attribute>
-               <layout class="QGridLayout" name="gridLayout_7">
-                <item row="0" column="0">
-                 <layout class="QHBoxLayout" name="horizontalLayout_2">
-                  <item>
-                   <widget class="QTabWidget" name="tabWidget">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose one of those tab as your input choice&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Left tab (Input directory):&lt;/span&gt; Automatically select all fastq.gz files found in the directory&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Middle tab (Input Samples):&lt;/span&gt; Sometimes, only 1 or 2 files (paired) are required, use this tab in such situations&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Right tab (Input pattern):&lt;/span&gt; Your samples may be in many sub directories, or you want to select only a sub set of files. Please provide a pattern with wildcards if you use this tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color:white</string>
-                    </property>
-                    <property name="tabShape">
-                     <enum>QTabWidget::Rounded</enum>
-                    </property>
-                    <property name="currentIndex">
-                     <number>0</number>
-                    </property>
-                    <property name="elideMode">
-                     <enum>Qt::ElideNone</enum>
-                    </property>
-                    <widget class="QWidget" name="tab_4">
-                     <attribute name="title">
-                      <string>a - Input directory</string>
-                     </attribute>
-                     <layout class="QGridLayout" name="gridLayout_10">
-                      <item row="0" column="0">
-                       <layout class="QVBoxLayout" name="layout_sequana_input_dir">
-                        <property name="spacing">
-                         <number>0</number>
-                        </property>
-                        <property name="sizeConstraint">
-                         <enum>QLayout::SetNoConstraint</enum>
-                        </property>
-                        <property name="topMargin">
-                         <number>0</number>
-                        </property>
-                        <property name="bottomMargin">
-                         <number>0</number>
-                        </property>
-                       </layout>
-                      </item>
-                     </layout>
-                    </widget>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
               <widget class="QWidget" name="sequana_working_dir_tab">
                <attribute name="title">
-                <string>3 - Working directory</string>
+                <string>2 - Working directory</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_8">
                 <item row="0" column="0">
@@ -1244,7 +1179,7 @@ Color code:
                <x>0</x>
                <y>0</y>
                <width>595</width>
-               <height>211</height>
+               <height>251</height>
               </rect>
              </property>
             </widget>

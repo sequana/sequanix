@@ -309,7 +309,14 @@ class Ui_Preferences(object):
         self.label_5.setToolTip(QCoreApplication.translate("Preferences", u"<html><head/><body><p>Set the path to the directory that will store the apptainer images. If empty, apptainers are downloaded in the .snakemake local directory where the pipeline is launched.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_5.setText(QCoreApplication.translate("Preferences", u"apptainer prefix", None))
+#if QT_CONFIG(tooltip)
+        self.label_8.setToolTip(QCoreApplication.translate("Preferences", u"<html><head/><body><p>You will most probably need to add a binding on your home using the syntax:</p><p><br/></p><p>-B /home</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.label_8.setText(QCoreApplication.translate("Preferences", u"apptainer_options", None))
+#if QT_CONFIG(tooltip)
+        self.preferences_options_sequana_apptainer_args_value.setToolTip(QCoreApplication.translate("Preferences", u"<html><head/><body><p>You will most probably need to add a binding on your home using the syntax:</p><p><br/></p><p>-B /home</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.preferences_options_sequana_apptainer_args_value.setText(QCoreApplication.translate("Preferences", u"-B /home", None))
         self.tabs.setTabText(self.tabs.indexOf(self.tab_sequana), QCoreApplication.translate("Preferences", u"Sequana", None))
     # retranslateUi
 

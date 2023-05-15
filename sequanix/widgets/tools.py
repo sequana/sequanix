@@ -7,7 +7,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import Signal as pyqtSignal
 
 
-__all__ = ["Logger", "Tools", "QPlainTextEditLogger"]
+__all__ = ["Logger", "QPlainTextEditLogger"]
 
 
 class Logger:
@@ -61,18 +61,6 @@ class Logger:
 
     def warning(self, text):
         self._mylogger.warning(text)
-
-
-class Tools(Logger):
-    def __init__(self):
-        super(Tools, self).__init__()
-
-    def copy(self, source, target):
-        try:
-            shutil.copy(source, target)
-        except Exception as err:
-            self.error(err)
-            self.warning("Cannot overwrite existing file. (Probably identical)")
 
 
 class QPlainTextEditLogger(colorlog.StreamHandler, QtCore.QObject):

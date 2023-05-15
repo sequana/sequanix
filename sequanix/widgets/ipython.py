@@ -1,5 +1,5 @@
 # Import the console machinery from ipython
-from qtconsole.rich_ipython_widget import RichJupyterWidget
+from qtconsole.rich_jupyter_widget import RichJupyterWidget
 from qtconsole.inprocess import QtInProcessKernelManager
 from IPython.lib import guisupport
 

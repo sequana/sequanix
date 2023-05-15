@@ -1,9 +1,8 @@
 import sys
-from PyQt5 import QtWidgets as QW
+from PySide6 import QtWidgets as QW
 
 from sequanix.widgets import QIPythonWidget
 
-app = QW.QApplication(sys.argv)
 
 
 def test_ipy():

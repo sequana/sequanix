@@ -18,7 +18,7 @@ Sequanix is a graphical user interface (GUI) that can be used to run Snakemake w
    :alt: JOSS (journal of open source software) DOI
 
 
-:Python version: 3.6, 3.7.3 (below for now)
+:Python version: 3.8, 3.9, 3.10
 :Documentation: `On readthedocs <http://sequana.readthedocs.org/>`_
 :Issues: `On github <https://github.com/sequana/sequana/issues>`_
 :How to cite: Citations are important for us to carry on developments.

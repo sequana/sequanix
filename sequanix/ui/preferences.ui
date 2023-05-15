@@ -303,13 +303,23 @@
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_8">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You will most probably need to add a binding on your home using the syntax:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;-B /home&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>apptainer_options</string>
              </property>
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="preferences_options_sequana_apptainer_args_value"/>
+            <widget class="QLineEdit" name="preferences_options_sequana_apptainer_args_value">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You will most probably need to add a binding on your home using the syntax:&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;-B /home&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>-B /home</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
