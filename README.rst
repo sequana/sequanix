@@ -3,6 +3,9 @@ Sequanix
 Sequanix is a graphical user interface (GUI) that can be used to run Snakemake workflows.
 
 
+.. image:: https://badge.fury.io/py/sequanix.svg
+    :target: https://pypi.python.org/pypi/sequanix
+
 .. image:: https://github.com/sequana/sequanix/actions/workflows/main.yml/badge.svg?branch=main
     :target: https://github.com/sequana/sequanix/actions/workflows/main.yml
 
@@ -12,10 +15,6 @@ Sequanix is a graphical user interface (GUI) that can be used to run Snakemake w
 .. image:: http://readthedocs.org/projects/sequana/badge/?version=main
     :target: https://sequana.readthedocs.io/en/main/sequanix.html
     :alt: Documentation Status
-
-.. image:: http://joss.theoj.org/papers/10.21105/joss.00352/status.svg
-   :target: http://joss.theoj.org/papers/10.21105/joss.00352
-   :alt: JOSS (journal of open source software) DOI
 
 
 :Python version: 3.8, 3.9, 3.10
