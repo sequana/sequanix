@@ -1,13 +1,16 @@
+import sys
 import colorlog
 import shutil
 
-from PyQt5 import QtWidgets as QW
-from PyQt5 import QtCore
+from PySide6 import QtWidgets as QW
+from PySide6 import QtCore
+from PySide6.QtCore import Signal as pyqtSignal
 
-__all__ = ["Logger", "Tools", "QPlainTextEditLogger"]
+
+__all__ = ["Logger", "QPlainTextEditLogger"]
 
 
-class Logger(object):
+class Logger:
     """Aliases to colorlog different methods (e.g. info, debug)
 
     Set a stream handler to the filename set in the constructor, which
@@ -43,7 +46,6 @@ class Logger(object):
         self._handler.close()
         self._fh.close()
         return self._logger_output
-        # self.init_logger()
 
     def info(self, text):
         self._mylogger.info(text)
@@ -61,33 +63,20 @@ class Logger(object):
         self._mylogger.warning(text)
 
 
-class Tools(Logger):
-    def __init__(self):
-        super(Tools, self).__init__()
-
-    def copy(self, source, target):
-        try:
-            shutil.copy(source, target)
-        except Exception as err:
-            self.error(err)
-            self.warning("Cannot overwrite existing file. (Probably identical)")
-
-
 class QPlainTextEditLogger(colorlog.StreamHandler, QtCore.QObject):
     """
-
 
     March 2020. On travis and locally, some tests failed randomly
     with a RuntimeError: wrapped c/c++ object of type qplaintextedit has been deleted
 
-    IT happens to be a issue in this class. According to this stackoverflow
+    It happens to be a issue in this class. According to this stackoverflow
     entry, https://stackoverflow.com/questions/28655198/best-way-to-display-logs-in-pyqt
     we had to implement a thread-safe version for travis and pytest to run
     properly.
 
     """
 
-    appendHtml = QtCore.pyqtSignal(str)
+    appendHtml = pyqtSignal(str)
 
     def __init__(self, parent):
         super().__init__()
@@ -109,35 +98,30 @@ class QPlainTextEditLogger(colorlog.StreamHandler, QtCore.QObject):
         self.appendHtml.connect(self.widget.appendHtml)
 
     def emit(self, record):
-        formatter = """<span style="color:%(color)s;
-                        font-weight:%(weight)s">%(msg)s</span>"""
+
+        formatter = """<span style="color:%(color)s;font-weight:%(weight)s">%(msg)s</span>"""
         # "\e[1;31m This is red text \e[0m"
         self.record = record
+
         msg = self.format(record)
         msg = msg.rstrip("\x1b[0m")
         if msg.startswith("\x1b[31m\x1b[47m"):  # critical
             msg = msg.replace("\x1b[31m\x1b[47m", "")
             params = {"msg": msg, "weight": "bold", "color": "red"}
-            # self.widget.appendHtml(formatter % params)
         elif msg.startswith("\x1b[32m"):  # info
             msg = msg.replace("\x1b[32m", "")
             params = {"msg": msg, "weight": "normal", "color": "green"}
-            # self.widget.appendHtml(formatter % params)
         elif msg.startswith("\x1b[33m"):  # warning
             msg = msg.replace("\x1b[33m", "")
             params = {"msg": msg, "weight": "normal", "color": "yellow"}
-            # self.widget.appendHtml(formatter % params)
         elif msg.startswith("\x1b[31m") or msg.startswith("\\x1b[31m"):  # error
             msg = msg.replace("\x1b[31m", "")
             msg = msg.replace("\\x1b[31m", "")
             params = {"msg": msg, "weight": "normal", "color": "red"}
-            # self.widget.appendHtml(formatter % params)
         elif msg.startswith("\x1b[36m"):  # debug
             msg = msg.replace("\x1b[36m", "")
             params = {"msg": msg, "weight": "normal", "color": "cyan"}
-            # self.widget.appendHtml(formatter % params)
         else:
             pass
-            # self.widget.appendHtml(msg)
-        self.appendHtml.emit(formatter % params)
+        self.widget.appendHtml(formatter % params)
         self.msg = msg

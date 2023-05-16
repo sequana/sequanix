@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets as QW
+from PySide6 import QtWidgets as QW
 from .messages import WarningMessage
 
 

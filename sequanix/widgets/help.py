@@ -1,5 +1,5 @@
 """Sequana GUI. Can also be used for any snakemake pipeline"""
-from PyQt5 import QtWidgets as QW
+from PySide6 import QtWidgets as QW
 
 from sequanix.ui import Ui_Help
 
@@ -27,11 +27,6 @@ Sequana
 
         <ol>
         <li> Select a pipeline</li>
-        <li> Click on the Input tab and select one of this tab:</li>
-            <ul>
-           <li> directory: select all fastq.gz files</li>
-           <li> samples: select a single-end or paired-end file(s)</li>
-            </ul>
         <li> Select the working directory</li>
         </ol>
 
@@ -42,6 +37,12 @@ Sequana
         <li>Select a config file (optional)</li>
         <li> Select the working directory</li>
         </ol>
+
+
+        Once done, go to the config section and fill the required entries. 
+        For Sequana pipeline, you will most probably need to fill the input_directory and input_pattern fields.
+        Then, you will need to look at the dedicated help for each pipeline.
+
 
         <h2> Sequana pipeline dedicated help </help>
              %(pipelines)s

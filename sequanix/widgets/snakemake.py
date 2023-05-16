@@ -19,11 +19,11 @@
 """Snakemake Dialog for the main GUI application"""
 import multiprocessing
 
-from PyQt5 import QtWidgets as QW
-from PyQt5 import QtCore
+from PySide6 import QtWidgets as QW
+from PySide6 import QtCore
 
 # Just to check the version
-from distutils.version import StrictVersion
+from packaging.version import Version
 import snakemake
 
 from sequanix.ui import Ui_Snakemake
@@ -72,12 +72,12 @@ class SnakemakeDialog(QW.QDialog):
         options = []
         # for difference versions of snakemake
         try:
-            snakemake_version = StrictVersion(snakemake.version.__version__)
+            snakemake_version = Version(snakemake.version.__version__)
         except:
-            snakemake_version = StrictVersion(snakemake.__version__)
+            snakemake_version = Version(snakemake.__version__)
         for name, widget in zip(names, widgets):
             # This option is valid for snakemake above 3.10
-            if name == "restart-times" and snakemake_version < StrictVersion("3.10"):  # prgma: no cover
+            if name == "restart-times" and snakemake_version < Version("3.10"):  # pragma: no cover
                 print("You should use Snakemake 3.10 or above")
                 continue
             options.append(SOptions(name, widget))

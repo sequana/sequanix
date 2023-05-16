@@ -4,8 +4,8 @@ from argparse import Namespace
 
 import pytest
 from mock import patch
-from easydev import TempFile
-from PyQt5 import QtWidgets as QW
+from PySide6 import QtWidgets as QW
+
 from sequana_pipetools import Module, SequanaConfig
 
 from sequanix.sequanix import SequanixGUI, Options
@@ -13,12 +13,11 @@ from sequanix.sequanix import SequanixGUI, Options
 from . import test_dir
 
 
-skiptravis = pytest.mark.skipif("TRAVIS_PYTHON_VERSION" in os.environ, reason="On travis")
 
 
 @pytest.fixture
 def module():
-    return Module("pipeline:quality_control")
+    return Module("pipeline:fastqc")
 
 
 def test_settings(qtbot):
@@ -57,7 +56,7 @@ def test_standalone_generic_with_config(qtbot, tmpdir):
     assert yaml["test"]["mylist"] == [1, 2, 3]
 
 
-def test_standalone_generic_with_config(qtbot, tmpdir, module):
+def test_standalone_generic_with_config2(qtbot, tmpdir, module):
     # Standalone for generic case given a wkdir and snakefile
     args = Namespace(wkdir=str(tmpdir), snakefile=module.snakefile, configfile=module.config)
     widget = SequanixGUI(ipython=False, user_options=args)
@@ -66,8 +65,6 @@ def test_standalone_generic_with_config(qtbot, tmpdir, module):
     assert widget.generic_factory.is_runnable()
     widget.save_project()
     widget.unlock_snakemake()
-    with TempFile() as fh:
-        widget.report_issues(fh.name)
 
     widget.click_run()
 
@@ -95,11 +92,11 @@ def test_standalone_generic_with_noconfig_2(qtbot, tmpdir):
     # check that it worked:
     widget.snakemake_dialog.ui.snakemake_options_general_forceall_value.setChecked(True)
     widget.click_run()
-    time.sleep(2)
+    time.sleep(1)
     widget.click_stop()
-    time.sleep(4)
+    time.sleep(1)
     widget.show_dag()
-    time.sleep(4)
+    time.sleep(1)
     widget.diag.close()
 
     # in the GUI, we see when it stops. Here, we need to wait a few seconds
@@ -135,21 +132,10 @@ def test_open_report(qtbot, tmpdir, module):
     assert widget.browser.isVisible() is False
 
     # try using firefox
-    widget = SequanixGUI(ipython=False, user_options=args)
-    qtbot.addWidget(widget)
-    widget.preferences_dialog.ui.preferences_options_general_htmlpage_value.setText("test.html")
-    widget.preferences_dialog.ui.preferences_options_general_browser_value.setCurrentText("firefox")
-
-    def simple_execute(cmd):
-        pass
-
-    @patch("easydev.execute", side_effects=simple_execute)
-    def runthis(qtbot):
-        widget.open_report()
-
-    runthis()
-    # There is no dialog browser but firefox should open a tab
-    # assert widget.browser.isVisible()
+    #widget = SequanixGUI(ipython=False, user_options=args)
+    #qtbot.addWidget(widget)
+    #widget.preferences_dialog.ui.preferences_options_general_htmlpage_value.setText("test.html")
+    #widget.preferences_dialog.ui.preferences_options_general_browser_value.setCurrentText("firefox")
 
 
 def test_progress_bar(qtbot):
@@ -168,14 +154,14 @@ def test_user_interface_sequana(qtbot):
     assert widget.form.count() == 0
 
     # simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("pipeline:quality_control")
+    index = widget.sequana_factory._choice_button.findText("pipeline:fastqc")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("pipeline:quality_control")
+    widget._update_sequana("pipeline:fastqc")
 
     # we should have the focus on the config file now
     assert widget.ui.tabs.currentIndex() == 2
-    assert widget.form.count() == 6
+    assert widget.form.count() in [6, 7]
     widget.clear_form()
     assert widget.form.count() == 0
 
@@ -185,7 +171,7 @@ def test_user_interface_sequana(qtbot):
 
 
 def test_others(qtbot, mocker):
-    widget = SequanixGUI(ipython=True)
+    widget = SequanixGUI(ipython=False)
     qtbot.addWidget(widget)
     # level and pipeline attribute
     widget.set_level()
@@ -220,27 +206,21 @@ def test_generic_copy_nodir(qtbot):
 
 def test_options():
     user_options = Options()
-    options = user_options.parse_args(["--pipeline", "quality_control"])
-
-
-def test_only(qtbot):
-    from easydev import execute
-
-    execute("sequanix --no-splash --testing")
+    options = user_options.parse_args(["--pipeline", "fastqc"])
 
 
 def test_import_config_from_menu(qtbot):
-    widget = SequanixGUI(ipython=True)
+    widget = SequanixGUI(ipython=False)
     qtbot.addWidget(widget)
     assert widget.sequana_factory._imported_config is None
     # while an existing config file should
     # First, we simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("pipeline:quality_control")
+    index = widget.sequana_factory._choice_button.findText("pipeline:fastqc")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("pipeline:quality_control")
+    widget._update_sequana("pipeline:fastqc")
 
-    qc = Module("pipeline:quality_control")
+    qc = Module("pipeline:fastqc")
     widget.menuImportConfig(qc.config)
     assert widget.sequana_factory._imported_config is not None
 

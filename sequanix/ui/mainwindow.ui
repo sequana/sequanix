@@ -203,7 +203,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>167</height>
+          <height>160</height>
          </size>
         </property>
         <property name="toolTip">
@@ -481,7 +481,7 @@
                </palette>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Left tab:&lt;/span&gt; Select one of the pipeline in the combo box. In order to get information about a pipeline, please see the Help menu. &lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Middle tab:&lt;/span&gt; Select one of this option&lt;/li&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Input directory: the directory where fastq.gz files are stored (all Sequana pipelines expect fastq.gz as input)&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Input samples: select one or two files (fastq.gz) in a directory&lt;/li&gt;&lt;/ol&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Right tab: &lt;/span&gt;Select working directory where Snakefile/pipeline and config files will be copied. Pipelines are also ran in that directory. &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1. Select one of the pipeline in the 'pipeline selection'. Its config file will appear in the bottom section. &lt;/p&gt;&lt;p&gt;2. Select the working directory, which is the directory where the pipeline and its config file will be copy and where the analysis will be run&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="styleSheet">
                <string notr="true">background-color:#ffeedd</string>
@@ -813,74 +813,9 @@
                 </item>
                </layout>
               </widget>
-              <widget class="QWidget" name="sequana_input_dir_tab">
-               <attribute name="title">
-                <string>2 - Input data (directory or files)</string>
-               </attribute>
-               <layout class="QGridLayout" name="gridLayout_7">
-                <item row="0" column="0">
-                 <layout class="QHBoxLayout" name="horizontalLayout_2">
-                  <item>
-                   <widget class="QTabWidget" name="tabWidget">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose one of those tab as your input choice&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Left tab (Input directory):&lt;/span&gt; Automatically select all fastq.gz files found in the directory&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Middle tab (Input Samples):&lt;/span&gt; Sometimes, only 1 or 2 files (paired) are required, use this tab in such situations&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Right tab (Input pattern):&lt;/span&gt; Your samples may be in many sub directories, or you want to select only a sub set of files. Please provide a pattern with wildcards if you use this tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color:white</string>
-                    </property>
-                    <property name="tabShape">
-                     <enum>QTabWidget::Rounded</enum>
-                    </property>
-                    <property name="currentIndex">
-                     <number>0</number>
-                    </property>
-                    <property name="elideMode">
-                     <enum>Qt::ElideNone</enum>
-                    </property>
-                    <widget class="QWidget" name="tab_4">
-                     <attribute name="title">
-                      <string>a - Input directory</string>
-                     </attribute>
-                     <layout class="QGridLayout" name="gridLayout_10">
-                      <item row="0" column="0">
-                       <layout class="QVBoxLayout" name="layout_sequana_input_dir">
-                        <property name="spacing">
-                         <number>0</number>
-                        </property>
-                        <property name="sizeConstraint">
-                         <enum>QLayout::SetNoConstraint</enum>
-                        </property>
-                        <property name="topMargin">
-                         <number>0</number>
-                        </property>
-                        <property name="bottomMargin">
-                         <number>0</number>
-                        </property>
-                       </layout>
-                      </item>
-                     </layout>
-                    </widget>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
               <widget class="QWidget" name="sequana_working_dir_tab">
                <attribute name="title">
-                <string>3 - Working directory</string>
+                <string>2 - Working directory</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_8">
                 <item row="0" column="0">
@@ -999,83 +934,24 @@
         <property name="title">
          <string>Pipeline control</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_15" columnstretch="1,0,2">
+        <layout class="QGridLayout" name="gridLayout_15" columnstretch="1,0">
          <item row="0" column="0">
-          <widget class="QFrame" name="frame">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+          <widget class="QCheckBox" name="action_apptainer">
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>21</height>
+            </size>
            </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your pipeline sets apptainers (a.k.a singularity) and you want to use them, tick this box. Strongly advice for Sequana pipelines so that there is no need to install third-party standalones.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_17">
-            <item row="1" column="0">
-             <widget class="QFrame" name="frame_control">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_16">
-               <item row="1" column="1">
-                <layout class="QFormLayout" name="formLayout">
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>Starting</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QComboBox" name="starting_box"/>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QComboBox" name="until_box">
-                   <property name="editable">
-                    <bool>false</bool>
-                   </property>
-                   <property name="currentText">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>Until</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="show_advanced_control">
-              <property name="text">
-               <string>show advanced control</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <property name="text">
+            <string>Use singularity/apptainer</string>
+           </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="2">
           <widget class="QFrame" name="frame_3">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1137,7 +1013,7 @@
                    <enum>QFrame::Box</enum>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please, Check the snakemake dialog (&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+O&lt;/span&gt;) to set the number of nodes in the local or cluster tabs and cluster options.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check the snakemake dialog (&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+O&lt;/span&gt;) to set the number of nodes/jobs, and cluster options.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
@@ -1303,7 +1179,7 @@ Color code:
                <x>0</x>
                <y>0</y>
                <width>595</width>
-               <height>160</height>
+               <height>251</height>
               </rect>
              </property>
             </widget>
@@ -1462,6 +1338,9 @@ border-radius: 5px;
 text-align: center;
 </string>
         </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
         <property name="value">
          <number>1</number>
         </property>
@@ -1477,7 +1356,7 @@ text-align: center;
      <x>0</x>
      <y>0</y>
      <width>647</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1590,7 +1469,6 @@ text-align: center;
  <tabstops>
   <tabstop>tabs_pipeline</tabstop>
   <tabstop>choice_button</tabstop>
-  <tabstop>starting_box</tabstop>
   <tabstop>tabs</tabstop>
   <tabstop>run_btn</tabstop>
   <tabstop>stop_btn</tabstop>
