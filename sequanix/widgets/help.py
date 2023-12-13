@@ -3,7 +3,6 @@ from PySide6 import QtWidgets as QW
 
 from sequanix.ui import Ui_Help
 
-
 helptxt = """
 <div style="fontsize:12px">
 <p>
@@ -39,7 +38,7 @@ Sequana
         </ol>
 
 
-        Once done, go to the config section and fill the required entries. 
+        Once done, go to the config section and fill the required entries.
         For Sequana pipeline, you will most probably need to fill the input_directory and input_pattern fields.
         Then, you will need to look at the dedicated help for each pipeline.
 

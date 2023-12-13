@@ -1,7 +1,7 @@
 # Import the console machinery from ipython
-from qtconsole.rich_jupyter_widget import RichJupyterWidget
-from qtconsole.inprocess import QtInProcessKernelManager
 from IPython.lib import guisupport
+from qtconsole.inprocess import QtInProcessKernelManager
+from qtconsole.rich_jupyter_widget import RichJupyterWidget
 
 
 # http://stackoverflow.com/questions/11513132/embedding-ipython-qt-console-in-a-pyqt-application

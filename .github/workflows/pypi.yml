@@ -1,5 +1,5 @@
 name: Publish to PyPI
-on: 
+on:
   push:
     tags:
       - '*'
@@ -15,7 +15,7 @@ jobs:
       with:
         python-version: 3.7
 
-    - name: Install package 
+    - name: Install package
       run: |
           pip install build
 
@@ -23,7 +23,7 @@ jobs:
       run: |
           rm -rf dist;
           python setup.py sdist
- 
+
     - name: Publish distribution to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
@@ -36,4 +36,3 @@ jobs:
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
-

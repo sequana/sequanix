@@ -18,13 +18,12 @@
 ##############################################################################
 import os
 
+import colorlog
 from PySide6 import QtCore
 from PySide6 import QtWidgets as QW
 from PySide6.QtSvgWidgets import QSvgWidget
 
 from .file_browser import FileBrowser
-
-import colorlog
 
 logger = colorlog.getLogger(__name__)
 
@@ -278,6 +277,8 @@ class NumberOption(GeneralOption):
         else:
             self.number = QW.QSpinBox()
         self.number.setRange(-1000000000, 1000000000)
+        if value > 1000000000:
+            value = 1000000000
         self.number.setValue(value)
         self.number.installEventFilter(self)
 

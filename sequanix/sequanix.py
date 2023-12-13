@@ -15,44 +15,43 @@
 #
 ##############################################################################
 """Sequana GUI. Can also be used for any snakemake pipeline"""
-import sys
-import os
-import shutil
-import re
-import time
-import psutil
-import subprocess as sp
 import argparse
+import os
+import re
+import shutil
 import signal
-import pkg_resources
+import subprocess as sp
+import sys
+import time
 
+import colorlog
+import easydev
+import pkg_resources
+import psutil
 from PySide6 import QtCore, QtGui
 from PySide6 import QtWidgets as QW
 from PySide6.QtCore import Qt, QTemporaryDir
 from PySide6.QtCore import Slot as pyqtSlot
-
 from sequana_pipetools import snaketools
+
 from sequanix.utils import YamlDocParser, on_cluster, rest2html
 
 from .ui import Ui_MainWindow
 from .widgets import (
-    Browser,
-    QIPythonWidget,
     About,
-    FileBrowser,
-    SVGDialog,
-    WarningMessage,
+    Browser,
     CriticalMessage,
-    PreferencesDialog,
+    FileBrowser,
     HelpDialog,
-    SnakemakeDialog,
     Logger,
+    PreferencesDialog,
+    QIPythonWidget,
     QPlainTextEditLogger,
     Ruleform,
+    SnakemakeDialog,
+    SVGDialog,
+    WarningMessage,
 )
-
-import easydev
-import colorlog
 
 logger = colorlog.getLogger(__name__)
 
@@ -203,35 +202,28 @@ class SequanaFactory(BaseFactory):
 
     def _get_snakefile(self):
         if self.pipeline:
-            module = snaketools.Module(self.pipeline)
+            module = snaketools.Pipeline(self.pipeline)
             return module.snakefile
 
     snakefile = property(_get_snakefile)
 
     def _get_configfile(self):
         if self.pipeline:
-            module = snaketools.Module(self.pipeline)
+            module = snaketools.Pipeline(self.pipeline)
             return module.config
 
     configfile = property(_get_configfile)
 
-    def _get_clusterconfigfile(self):
-        if self.pipeline:
-            module = snaketools.Module(self.pipeline)
-            return module.cluster_config
-
-    clusterconfigfile = property(_get_clusterconfigfile)
-
     def _get_multiqcconfigfile(self):
         if self.pipeline:
-            module = snaketools.Module(self.pipeline)
+            module = snaketools.Pipeline(self.pipeline)
             return module.multiqc_config
 
     multiqcconfigfile = property(_get_multiqcconfigfile)
 
     def _get_schemafile(self):
         if self.pipeline:
-            module = snaketools.Module(self.pipeline)
+            module = snaketools.Pipeline(self.pipeline)
             return module.schema_config
 
     schemafile = property(_get_schemafile)
@@ -255,8 +247,6 @@ class SequanaFactory(BaseFactory):
         in2 = self._sequana_paired_tab.get_filenames()
         txt = super(SequanaFactory, self).__repr__()
         txt += "\npipeline:%s\ninput:\n - %s\n - %s\n - directory:%s\n"
-        if self.clusterconfigfile:
-            txt += " - cluster config: %s\n" % self.clusterconfigfile
         if self.schemafile:
             txt += " - schema config: %s" % self.schemafile
         if self.multiqcconfigfile:
@@ -556,7 +546,7 @@ class SequanixGUI(QW.QMainWindow):
         self.process1 = QtCore.QProcess(self)
         self.process2 = QtCore.QProcess(self)
 
-        #self.ui.tabWidget.currentChanged.connect(lambda: self.ui.run_btn.setEnabled(False))
+        # self.ui.tabWidget.currentChanged.connect(lambda: self.ui.run_btn.setEnabled(False))
 
         # if we are on one of those clusters, switch to the cluster choice in
         # the pipeline control combo box
@@ -723,10 +713,10 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
         # Is there a cluster config file ?
         dialog = self.snakemake_dialog.ui
 
-        if self.sequana_factory.clusterconfigfile:
-            dialog.snakemake_options_cluster_cluster__config_value.set_filenames(self.sequana_factory.clusterconfigfile)
-        else:
-            dialog.snakemake_options_cluster_cluster__config_value.set_filenames("")
+        # if self.sequana_factory.clusterconfigfile:
+        #    dialog.snakemake_options_cluster_cluster__config_value.set_filenames(self.sequana_factory.clusterconfigfile)
+        # else:
+        #    dialog.snakemake_options_cluster_cluster__config_value.set_filenames("")
         self.switch_off()
         # Reset imported config file in SequanaFactory
         self.sequana_factory._imported_config = None
@@ -901,7 +891,7 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
         """
         dialog = self.snakemake_dialog  # an alias
         # let us remove --stat stats.txt to make it simple (v0.2)
-        #snakemake_line = ["-s", snakefile, "--stat", "stats.txt", "-p"]
+        # snakemake_line = ["-s", snakefile, "--stat", "stats.txt", "-p"]
         snakemake_line = ["-s", snakefile, "-p"]
 
         if self.ui.comboBox_local.currentText() == "local":
@@ -1076,12 +1066,10 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
         self.logger.info("Creating form based on config file")
         self.clear_form()
 
-
         rules_list = list(self.config._yaml_code.keys())
 
         # key/value not in rules
         self.necessary_dict = {}
-
 
         docparser = YamlDocParser(self.configfile)
         import ruamel.yaml.comments
@@ -1138,10 +1126,10 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
                 # user input_directory and input_pattern if provided. If so, we reset them
                 #
                 if self.mode == "sequana":
-                    if rule ==  'input_directory' and self._user_input_directory:
+                    if rule == "input_directory" and self._user_input_directory:
                         contains = self._user_input_directory
                         self._user_input_directory = None
-                    if rule ==  'input_pattern' and self._user_input_pattern:
+                    if rule == "input_pattern" and self._user_input_pattern:
                         contains = self._user_input_pattern
                         self._user_input_pattern = None
 
@@ -1181,7 +1169,7 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
         if self.process.state() != 0:
             self.process.pid = self.process.processId
             pid = self.process.pid()
-            #pid = self.process.processId
+            # pid = self.process.processId
 
             self.logger.warning(f"Process {pid} running , stopping it... ")
             # We must use a ctrl+C interruption so that snakemake
@@ -1284,11 +1272,38 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
             msg.exec_()
             return
 
-        # Here we save the undefined section in the form.
-        if self._undefined_section in form_dict.keys():
-            for key, value in form_dict[self._undefined_section].items():
-                form_dict[key] = value
-            del form_dict[self._undefined_section]
+        # get samples names or input_directory
+        if self.mode == "sequana":
+            self.logger.info("Sequana case")
+            # flag1 = self.sequana_factory._sequana_directory_tab.get_filenames()
+            # flag2 = self.sequana_factory._sequana_paired_tab.get_filenames()
+
+            filename = self.sequana_factory._sequana_directory_tab.get_filenames()
+            form_dict["input_directory"] = filename
+
+            # If pattern provided, the input_directory is reset but used in
+            # the pattern as the basename
+            # pattern = self.sequana_factory._sequana_pattern_lineedit.text()
+            # if len(pattern.strip()):
+            #    form_dict["input_pattern"] = filename
+            #    form_dict["input_pattern"] += os.sep + pattern.strip()
+            #    form_dict["input_directory"] = ""
+
+            # readtag = self.sequana_factory._sequana_readtag_lineedit.text()
+            # if len(readtag.strip()):
+            #    form_dict["input_readtag"] = readtag
+            if self._undefined_section in form_dict.keys():
+                for key, value in form_dict[self._undefined_section].items():
+                    form_dict[key] = value
+                del form_dict[self._undefined_section]
+
+        elif self.mode == "generic":
+            # Here we save the undefined section in the form.
+            if self._undefined_section in form_dict.keys():
+                for key, value in form_dict[self._undefined_section].items():
+                    form_dict[key] = value
+                del form_dict[self._undefined_section]
+                self.logger.info("Generic case")
 
         # Let us update the attribute with the content of the form
         # This uses the user's information
@@ -1344,13 +1359,14 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
                         return
 
             # Save the configuration file for the cluster
-            if self.mode == "sequana" and self.sequana_factory.clusterconfigfile:
-                target = os.sep.join((self.working_dir, "cluster_config.json"))
-                shutil.copy(self.sequana_factory.clusterconfigfile, target)
-                # replace the name of the original file with the target one so
-                # that the target can be edited. The target will also be used in
-                # place of the original version when launnching snakemake!
-                self.snakemake_dialog.ui.snakemake_options_cluster_cluster__config_value.set_filenames(target)
+            # FIXME revive cluster
+            # if self.mode == "sequana":  and self.sequana_factory.clusterconfigfile:
+            #    target = os.sep.join((self.working_dir, "cluster_config.json"))
+            #    shutil.copy(self.sequana_factory.clusterconfigfile, target)
+            #    # replace the name of the original file with the target one so
+            #    # that the target can be edited. The target will also be used in
+            #    # place of the original version when launnching snakemake!
+            #    self.snakemake_dialog.ui.snakemake_options_cluster_cluster__config_value.set_filenames(target)
 
             # Save the multiqc_config file if provided in sequana pipeline
             if self.mode == "sequana" and self.sequana_factory.multiqcconfigfile:
@@ -1402,8 +1418,9 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
             with TempFile(suffix=".yaml") as fout:
                 # save a temporary version
                 cfg.save(fout.name)
-                import ruamel
                 import warnings
+
+                import ruamel
                 from pykwalify.core import Core
 
                 # causes issue with ruamel.yaml 0.12.13. Works for 0.15
@@ -1611,7 +1628,7 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
             index = settings.value("tab_sequana_position")
             self.ui.tabs_sequana.setCurrentIndex(int(index))
 
-        #if settings.value("tab_sequana_input_position") is not None:
+        # if settings.value("tab_sequana_input_position") is not None:
         #    index = settings.value("tab_sequana_input_position")
         #    self.ui.tabWidget.setCurrentIndex(int(index))
 
@@ -1628,8 +1645,8 @@ Bioinformatics v34, <a href="https://doi.org/10.1093/bioinformatics/bty034">doi.
         index = self.ui.tabs_sequana.currentIndex()
         settings.setValue("tab_sequana_position", index)
 
-        #index = self.ui.tabWidget.currentIndex()
-        #settings.setValue("tab_sequana_input_position", index)
+        # index = self.ui.tabWidget.currentIndex()
+        # settings.setValue("tab_sequana_input_position", index)
 
     def _close(self):
         self.write_settings()
@@ -1680,7 +1697,13 @@ class Options(argparse.ArgumentParser):
         group.add_argument("-n", "--no-splash", dest="nosplash", action="store_true", help="No splash screen")
 
         group = self.add_argument_group("SEQUANA")
-        group.add_argument("-p", "--pipeline", dest="pipeline", default=None,  help="A valid sequana pipeline name e.g., multitax, lora, variant_calling")
+        group.add_argument(
+            "-p",
+            "--pipeline",
+            dest="pipeline",
+            default=None,
+            help="A valid sequana pipeline name e.g., multitax, lora, variant_calling",
+        )
 
         group_mut = group.add_mutually_exclusive_group()
         group_mut.add_argument(
@@ -1725,8 +1748,6 @@ def main(args=None):  # pragma: no cover
         args = sys.argv[:]
     user_options = Options()
     options = user_options.parse_args(args[1:])
-    if options.pipeline and not options.pipeline.startswith("pipeline:"):
-        options.pipeline = f"pipeline:{options.pipeline}"
 
     signal.signal(signal.SIGINT, sigint_handler)
 

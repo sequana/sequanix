@@ -5,19 +5,17 @@ from argparse import Namespace
 import pytest
 from mock import patch
 from PySide6 import QtWidgets as QW
+from sequana_pipetools import SequanaConfig
+from sequana_pipetools.snaketools.module import Pipeline
 
-from sequana_pipetools import Module, SequanaConfig
-
-from sequanix.sequanix import SequanixGUI, Options
+from sequanix.sequanix import Options, SequanixGUI
 
 from . import test_dir
 
 
-
-
 @pytest.fixture
 def module():
-    return Module("pipeline:fastqc")
+    return Pipeline("fastqc")
 
 
 def test_settings(qtbot):
@@ -132,10 +130,10 @@ def test_open_report(qtbot, tmpdir, module):
     assert widget.browser.isVisible() is False
 
     # try using firefox
-    #widget = SequanixGUI(ipython=False, user_options=args)
-    #qtbot.addWidget(widget)
-    #widget.preferences_dialog.ui.preferences_options_general_htmlpage_value.setText("test.html")
-    #widget.preferences_dialog.ui.preferences_options_general_browser_value.setCurrentText("firefox")
+    # widget = SequanixGUI(ipython=False, user_options=args)
+    # qtbot.addWidget(widget)
+    # widget.preferences_dialog.ui.preferences_options_general_htmlpage_value.setText("test.html")
+    # widget.preferences_dialog.ui.preferences_options_general_browser_value.setCurrentText("firefox")
 
 
 def test_progress_bar(qtbot):
@@ -154,10 +152,10 @@ def test_user_interface_sequana(qtbot):
     assert widget.form.count() == 0
 
     # simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("pipeline:fastqc")
+    index = widget.sequana_factory._choice_button.findText("fastqc")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("pipeline:fastqc")
+    widget._update_sequana("fastqc")
 
     # we should have the focus on the config file now
     assert widget.ui.tabs.currentIndex() == 2
@@ -215,12 +213,12 @@ def test_import_config_from_menu(qtbot):
     assert widget.sequana_factory._imported_config is None
     # while an existing config file should
     # First, we simulate selection of quality control pipeline
-    index = widget.sequana_factory._choice_button.findText("pipeline:fastqc")
+    index = widget.sequana_factory._choice_button.findText("fastqc")
     widget.sequana_factory._choice_button.setCurrentIndex(index)
     widget.ui.tabs_pipeline.setCurrentIndex(0)  # set sequana pipeline mode
-    widget._update_sequana("pipeline:fastqc")
+    widget._update_sequana("fastqc")
 
-    qc = Module("pipeline:fastqc")
+    qc = Pipeline("fastqc")
     widget.menuImportConfig(qc.config)
     assert widget.sequana_factory._imported_config is not None
 

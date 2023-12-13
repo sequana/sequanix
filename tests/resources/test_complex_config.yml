@@ -17,12 +17,12 @@ input_pattern: '*fastq.gz'
 #
 # :Parameters:
 #
-# - aligner: either star, bowtie or bowtie2. 
+# - aligner: either star, bowtie or bowtie2.
 # - genome_directory: directory where all indexes are written.
 # - rRNA_contaminant: path to an existing fasta file for ribosomal RNA (to be found in
 #   genome_directory)
 # - rRNA_feature: if rRNA_contaminant is not provided, ribosomal RNA will be extract
-#     from GFF using this feature name. It must be found. 
+#     from GFF using this feature name. It must be found.
 general:
     aligner: salmon
     genome_directory: Lepto
@@ -84,4 +84,3 @@ trimming:
 salmon_mapping:
     options: -l A
     threads: 4
-

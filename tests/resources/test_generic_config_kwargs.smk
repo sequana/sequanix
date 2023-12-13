@@ -1,6 +1,6 @@
 # See test_gui_generic_snakefile_configfile.rules for details
 #
-# There is no configfile keyword. Yet, we use the special variable config, which 
+# There is no configfile keyword. Yet, we use the special variable config, which
 # can be defined using:
 #
 #     snakemake --configfile config.yaml

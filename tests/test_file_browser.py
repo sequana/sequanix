@@ -1,6 +1,6 @@
 import pytest
 
-from sequanix.widgets import FileBrowser, DirectoryDialog
+from sequanix.widgets import DirectoryDialog, FileBrowser
 
 
 # How to use that ?

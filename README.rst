@@ -24,7 +24,7 @@ Sequanix is a graphical user interface (GUI) that can be used to run Snakemake w
 
     For **Sequanix**: Dimitri Desvillechabrol, Rachel Legendre, Claire Rioualen,
     Christiane Bouchier, Jacques van Helden, Sean Kennedy, Thomas Cokelaer.
-    Sequanix: A Dynamic Graphical Interface for Snakemake Workflows 
+    Sequanix: A Dynamic Graphical Interface for Snakemake Workflows
     Bioinformatics, bty034, https://doi.org/10.1093/bioinformatics/bty034
     Also available on bioRxiv (DOI: https://doi.org/10.1101/162701)
 
@@ -67,6 +67,7 @@ Changelog
 ========= ==========================================================================
 Version   Description
 ========= ==========================================================================
+0.3.0     * refactoring to use click and new sequana_pipetools
 0.2.0     * add logo
           * remove pin on python3.7
           * switch from PyQt5 to PySide6
@@ -74,8 +75,3 @@ Version   Description
             handle it
 0.1.0     * revamp Sequanix independently of Sequana
 ========= ==========================================================================
-
-
-
-
-
