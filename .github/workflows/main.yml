@@ -37,15 +37,10 @@ jobs:
         sudo apt install graphviz
         sudo apt install libgl1 libgl1-mesa-glx libegl1 libgles2-mesa-dev libgl1-mesa-dev
 
-
     - name: install package itself
       run: |
         pip install poetry
-        poetry install
-
-    - name: testing
-      run: |
-        poetry run pytest --cov-report term --cov=sequana_pipetools
+        poetry install --with dev
 
     - name: Lint with flake8
       run: |
