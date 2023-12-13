@@ -61,7 +61,7 @@ jobs:
         Xvfb :99 -screen 0 1024x768x24 > dev>null 2>&1 &
         # gives xvfb some time to start
         sleep 3
-        pytest -s --cov-report term-missing --cov=sequanix -v
+        poetry run pytest -s --cov-report term-missing --cov=sequanix -v
 
     - name: coveralls
       run: |
