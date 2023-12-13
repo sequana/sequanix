@@ -38,10 +38,10 @@ jobs:
         sudo apt install libgl1 libgl1-mesa-glx libegl1 libgles2-mesa-dev libgl1-mesa-dev
 
 
-     - name: install package itself
-       run: |
-         pip install poetry
-         poetry install
+    - name: install package itself
+      run: |
+        pip install poetry
+        poetry install
 
     - name: testing
       run: |
