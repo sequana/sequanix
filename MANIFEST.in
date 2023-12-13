@@ -1,8 +1,0 @@
-recursive-exclude * __pycache__
-recursive-exclude * *pyc
-recursive-exclude test *
-recursive-exclude doc *
-include requirements*txt
-include CONTRIBUTING.rst
-include LICENSE
-include README.rst

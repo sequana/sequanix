@@ -1,11 +1,10 @@
-import sys
-import colorlog
 import shutil
+import sys
 
-from PySide6 import QtWidgets as QW
+import colorlog
 from PySide6 import QtCore
+from PySide6 import QtWidgets as QW
 from PySide6.QtCore import Signal as pyqtSignal
-
 
 __all__ = ["Logger", "QPlainTextEditLogger"]
 

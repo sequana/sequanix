@@ -1,0 +1,64 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "sequanix"
+version = "0.3.0"
+description = "Sequanix is a graphical user interface (GUI) that can be used to run Snakemake workflows"
+authors = ["Sequana Team"]
+license = "BSD-3"
+repository = "https://github.com/sequana/sequanix"
+readme = "README.rst"
+keywords = ["snakemake", "NGS", "sequana", "pipelines", "sequanix"]
+classifiers = [
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Education",
+        "Intended Audience :: End Users/Desktop",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Scientific/Engineering :: Bio-Informatics",
+        "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+packages = [
+    {include = "sequanix"}
+]
+
+
+[tool.poetry.dependencies]
+click-completion = "^0.5.2"
+colorlog = "^6.8.0"
+ipython = "<8"
+python = ">=3.8,<3.13"
+qtconsole = "^5.5.1"
+pyside6 = "^6.6.1"
+pyside6-essentials = "^6.6.1"
+pyopengl = "^3.1.7"
+pyopengl-accelerate = "^3.1.7"
+sequana = ">=0.16.2"
+sequana-pipetools = "^0.16.6"
+snakemake = "^7.32.4"
+
+
+[tool.poetry.scripts]
+sequanix = "sequanix:main"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+pytest = "^7.4.0"
+mock = "^5.1.0"
+pytest-mock = "^3.11.1"
+pytest-cov = "^4.1.0"
+pytest-qt = "^4.2.0"
+coveralls = "^3.3.1"
+sequana-fastqc = "^1.8.0"
+
+

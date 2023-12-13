@@ -19,12 +19,12 @@
 """Snakemake Dialog for the main GUI application"""
 import multiprocessing
 
-from PySide6 import QtWidgets as QW
-from PySide6 import QtCore
+import snakemake
 
 # Just to check the version
 from packaging.version import Version
-import snakemake
+from PySide6 import QtCore
+from PySide6 import QtWidgets as QW
 
 from sequanix.ui import Ui_Snakemake
 

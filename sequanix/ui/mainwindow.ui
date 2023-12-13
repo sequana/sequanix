@@ -1096,12 +1096,12 @@
          </property>
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is an IPython shell included in the GUI. The entire Sequana GUI is accessible as the variable &lt;span style=&quot; font-weight:600;&quot;&gt;gui.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;For instance, you can access to layout or values set in the graphical interface with:&lt;/p&gt;
-&lt;pre&gt;    
+&lt;pre&gt;
     gui.ui
 &lt;/pre&gt;
 
 &lt;p&gt;More generally, this is a pure IPython shell, so you can use e.g. matplotlib/pylab:&lt;/p&gt;
-&lt;pre&gt;    
+&lt;pre&gt;
     import pylab
     pylab.plot([1,2,3])
 &lt;/pre&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1133,7 +1133,7 @@ Color code:
 - info: green
 - warning: orange
 - error: red
-- critical: bold red 
+- critical: bold red
 &lt;/pre&gt;You can change the verbosity in the preferences dialog&lt;/p&gt;</string>
          </property>
          <attribute name="title">

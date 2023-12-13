@@ -1,11 +1,17 @@
 import sys
 
 import pytest
-from PySide6.QtGui import qBlue
 from PySide6 import QtWidgets as QW
+from PySide6.QtGui import qBlue
 
-
-from sequanix.widgets import SnakemakeDialog, PreferencesDialog, WarningMessage, CriticalMessage, Browser, About
+from sequanix.widgets import (
+    About,
+    Browser,
+    CriticalMessage,
+    PreferencesDialog,
+    SnakemakeDialog,
+    WarningMessage,
+)
 
 
 def test_preference(qtbot, mocker):

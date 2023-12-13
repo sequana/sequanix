@@ -3,7 +3,7 @@
 # to be provided. The filename must be config.yaml as encoded in the file
 
 # This pipeline simply creates dummy data (data rule) with a bunch of
-# A, C, G, T letters as a 1-column file. Then the counter rule, just counts 
+# A, C, G, T letters as a 1-column file. Then the counter rule, just counts
 # the number of letters and save it in count.txt file.
 #
 

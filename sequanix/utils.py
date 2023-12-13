@@ -17,22 +17,20 @@
 #
 ##############################################################################
 """.. rubric:: misc utilities"""
-import os
 import glob
-import platform
+import os
 import pathlib
+import platform
 import re
 import subprocess
 
-import ruamel.yaml
-
 import colorlog
+import ruamel.yaml
 
 logger = colorlog.getLogger(__name__)
 
 from docutils import core
-from docutils.writers.html4css1 import Writer, HTMLTranslator
-
+from docutils.writers.html4css1 import HTMLTranslator, Writer
 
 __all__ = ["rest2html", "on_cluster", "YamlDocParser"]
 
@@ -47,9 +45,7 @@ def on_cluster(cmds=["sbatch"]):
     """
 
     def cmd_exists(cmd):
-        result = subprocess.call(
-            "type " + cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
+        result = subprocess.call("type " + cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         return result == 0
 
     for cmd in cmds:
@@ -95,7 +91,7 @@ class YamlDocParser(object):
 
         from sequana_pipetools import snaketools
         from sequanix.misc import YamlDocParser
-        module = snaketools.Module('quality_control')
+        module = snaketools.Pipeline('quality_control')
         r = YamlDocParser(module.config)
         r.sections['fastqc']
 
@@ -140,7 +136,7 @@ class YamlDocParser(object):
         :return: list of top level sections' names"""
 
         with open(self.filename, "r") as fh:
-            yaml = ruamel.yaml.YAML(typ="unsafe", pure=True)
+            yaml = ruamel.yaml.YAML(pure=True)
             data = yaml.load(fh.read())
         keys = list(data.keys())
         return keys
