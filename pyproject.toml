@@ -34,8 +34,8 @@ packages = [
 
 [tool.poetry.dependencies]
 click-completion = "^0.5.2"
-colorlog = "^6.8.0"
-ipython = "<8"
+colorlog = "^6.7.0"
+ipython = "^8.1"
 python = ">=3.8,<3.13"
 qtconsole = "^5.5.1"
 pyside6 = "^6.6.1"
@@ -43,7 +43,7 @@ pyside6-essentials = "^6.6.1"
 pyopengl = "^3.1.7"
 pyopengl-accelerate = "^3.1.7"
 sequana = ">=0.16.2"
-sequana-pipetools = "^0.16.6"
+sequana-pipetools = "^0.17.0"
 snakemake = "^7.32.4"
 
 
