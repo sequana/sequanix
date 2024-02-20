@@ -54,6 +54,11 @@ For developers, use::
     git clone git@github.com:sequana/sequanix.git
     pip install -e .[testing]
 
+More documentation
+###################
+
+For now, you may find more documentation on https://sequana.readthedocs.io
+
 
 Design choice
 #############
