@@ -42,7 +42,6 @@ pyside6 = "^6.6.1"
 pyside6-essentials = "^6.6.1"
 pyopengl = "^3.1.7"
 pyopengl-accelerate = "^3.1.7"
-sequana = ">=0.16.2"
 sequana-pipetools = "^0.17.0"
 snakemake = "^7.32.4"
 
