@@ -16,6 +16,9 @@ Sequanix is a graphical user interface (GUI) that can be used to run Snakemake w
     :target: https://sequana.readthedocs.io/en/main/sequanix.html
     :alt: Documentation Status
 
+.. image:: https://static.pepy.tech/personalized-badge/sequanix?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads
+    :target: https://pepy.tech/projects/sequanix
+
 
 :Python version: 3.8, 3.9, 3.10
 :Documentation: `On readthedocs <http://sequana.readthedocs.org/>`_
@@ -58,7 +61,7 @@ More documentation
 ###################
 
 For now, you may find more documentation on https://sequana.readthedocs.io
-
+and more specifically here: https://sequana.readthedocs.io/en/main/sequanix.html
 
 Design choice
 #############
