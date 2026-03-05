@@ -40,20 +40,19 @@ class Ruleform(QW.QGroupBox):
         self.setStyleSheet(
             """QGroupBox
             {
-                font-weight:bold;
-                font-size: 18px;
-                border: 2px solid gray;
-                border-radius: 4px;
-                margin-top: 0.5em;
+                font-weight: bold;
+                font-size: 13px;
+                border: 1px solid #CFD8DC;
+                border-radius: 6px;
+                margin-top: 8px;
+                background-color: #FAFAFA;
             }
-            QGroupBox::Title {
+            QGroupBox::title {
                 subcontrol-origin: margin;
-                color:red;
-                left: 20px;
-                padding: 0 3px 0 3px
+                color: #1565C0;
+                left: 10px;
+                padding: 0 5px 0 5px;
             }
-
-
         """
         )
 
@@ -310,7 +309,7 @@ class ComboboxOptions(GeneralOption):
         super().__init__(option)
         self.choice = QW.QComboBox()
         self.choice.addItems(values)
-        self.choice.setStyleSheet("QComboBox { selection-background-color: #5964FF; }")
+        self.choice.setStyleSheet("QComboBox { selection-background-color: #1976D2; }")
         self.layout.addWidget(self.choice)
         self.choice.setCurrentText(value)
 
