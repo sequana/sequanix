@@ -14,11 +14,14 @@ class FileBrowser(QW.QWidget):
             self.filter = file_filter + ";;" + self.filter
         self.empty_msg = "No file selected"
         self.btn = QW.QPushButton("Browse", self)
-        self.btn.setFixedSize(100, 20)
+        self.btn.setFixedSize(100, 28)
         self.Nmax = 30
 
-        # Add default color
-        self.btn.setStyleSheet("QPushButton {background-color: #AA0000; " "color: #EEEEEE}")
+        # Default color: red indicates no file selected yet
+        self.btn.setStyleSheet(
+            "QPushButton { background-color: #C62828; color: #FFFFFF; border-radius: 4px; }"
+            "QPushButton:hover { background-color: #B71C1C; }"
+        )
 
         if directory:
             self.empty_msg = "No directory selected"
@@ -37,16 +40,22 @@ class FileBrowser(QW.QWidget):
 
         # By default the selection and background colors are too close, so
         # we force the selection to be bluish (instead of whitish)
-        self.setStyleSheet("* { selection-background-color: #5964FF; }")
+        self.setStyleSheet("* { selection-background-color: #1976D2; }")
 
     def _setup_true(self):
         self.setup = True
 
     def setup_color(self):
         if self.path_is_setup():
-            self.btn.setStyleSheet("QPushButton {background-color: #00AA00; " "color: #EEEEEE}")
+            self.btn.setStyleSheet(
+                "QPushButton { background-color: #2E7D32; color: #FFFFFF; border-radius: 4px; }"
+                "QPushButton:hover { background-color: #1B5E20; }"
+            )
         else:
-            self.btn.setStyleSheet("QPushButton {background-color: #AA0000; " "color: #EEEEEE}")
+            self.btn.setStyleSheet(
+                "QPushButton { background-color: #C62828; color: #FFFFFF; border-radius: 4px; }"
+                "QPushButton:hover { background-color: #B71C1C; }"
+            )
 
     def _set_paired_filenames(self, file_path):
         self.paths = {"file{0}".format(i + 1): file_path[i] for i in range(0, len(file_path))}
@@ -123,7 +132,9 @@ class FileBrowser(QW.QWidget):
         if switch_bool:
             self.setup_color()
         else:
-            self.btn.setStyleSheet("QPushButton {background-color: #AAAAAA; " "color: #222222}")
+            self.btn.setStyleSheet(
+                "QPushButton { background-color: #B0BEC5; color: #546E7A; border-radius: 4px; }"
+            )
         self.btn.setEnabled(switch_bool)
 
     def path_is_setup(self):

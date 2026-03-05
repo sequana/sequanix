@@ -24,8 +24,6 @@ from PySide6.QtCore import (
 )
 from PySide6.QtGui import (
     QAction,
-    QBrush,
-    QColor,
     QConicalGradient,
     QCursor,
     QFont,
@@ -36,7 +34,6 @@ from PySide6.QtGui import (
     QKeySequence,
     QLinearGradient,
     QPainter,
-    QPalette,
     QPixmap,
     QRadialGradient,
     QTransform,
@@ -75,29 +72,6 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        palette = QPalette()
-        brush = QBrush(QColor(170, 0, 0, 255))
-        brush.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Active, QPalette.BrightText, brush)
-        palette.setBrush(QPalette.Active, QPalette.HighlightedText, brush)
-        brush1 = QBrush(QColor(247, 10, 46, 255))
-        brush1.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Active, QPalette.AlternateBase, brush1)
-        palette.setBrush(QPalette.Active, QPalette.NoRole, brush)
-        brush2 = QBrush(QColor(255, 170, 127, 255))
-        brush2.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Active, QPalette.ToolTipBase, brush2)
-        palette.setBrush(QPalette.Inactive, QPalette.BrightText, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.HighlightedText, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush1)
-        palette.setBrush(QPalette.Inactive, QPalette.NoRole, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.ToolTipBase, brush2)
-        palette.setBrush(QPalette.Disabled, QPalette.BrightText, brush)
-        palette.setBrush(QPalette.Disabled, QPalette.HighlightedText, brush)
-        palette.setBrush(QPalette.Disabled, QPalette.AlternateBase, brush1)
-        palette.setBrush(QPalette.Disabled, QPalette.NoRole, brush)
-        palette.setBrush(QPalette.Disabled, QPalette.ToolTipBase, brush2)
-        MainWindow.setPalette(palette)
         MainWindow.setStyleSheet("")
         MainWindow.setTabShape(QTabWidget.Rounded)
         self.actionImportConfig = QAction(MainWindow)
@@ -135,7 +109,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tabs_pipeline.sizePolicy().hasHeightForWidth())
         self.tabs_pipeline.setSizePolicy(sizePolicy)
         self.tabs_pipeline.setMinimumSize(QSize(0, 160))
-        self.tabs_pipeline.setStyleSheet("background-color:#aaddcc")
         self.tabs_pipeline.setTabPosition(QTabWidget.North)
         self.tabs_pipeline.setTabShape(QTabWidget.Rounded)
         self.tabs_pipeline.setMovable(True)
@@ -156,35 +129,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tabs_sequana.sizePolicy().hasHeightForWidth())
         self.tabs_sequana.setSizePolicy(sizePolicy)
         self.tabs_sequana.setBaseSize(QSize(0, 0))
-        palette1 = QPalette()
-        brush3 = QBrush(QColor(255, 238, 221, 255))
-        brush3.setStyle(Qt.SolidPattern)
-        palette1.setBrush(QPalette.Active, QPalette.Button, brush3)
-        palette1.setBrush(QPalette.Active, QPalette.Light, brush)
-        palette1.setBrush(QPalette.Active, QPalette.BrightText, brush)
-        palette1.setBrush(QPalette.Active, QPalette.Base, brush3)
-        palette1.setBrush(QPalette.Active, QPalette.Window, brush3)
-        palette1.setBrush(QPalette.Active, QPalette.HighlightedText, brush)
-        palette1.setBrush(QPalette.Active, QPalette.AlternateBase, brush)
-        palette1.setBrush(QPalette.Active, QPalette.NoRole, brush)
-        palette1.setBrush(QPalette.Inactive, QPalette.Button, brush3)
-        palette1.setBrush(QPalette.Inactive, QPalette.Light, brush)
-        palette1.setBrush(QPalette.Inactive, QPalette.BrightText, brush)
-        palette1.setBrush(QPalette.Inactive, QPalette.Base, brush3)
-        palette1.setBrush(QPalette.Inactive, QPalette.Window, brush3)
-        palette1.setBrush(QPalette.Inactive, QPalette.HighlightedText, brush)
-        palette1.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush)
-        palette1.setBrush(QPalette.Inactive, QPalette.NoRole, brush)
-        palette1.setBrush(QPalette.Disabled, QPalette.Button, brush3)
-        palette1.setBrush(QPalette.Disabled, QPalette.Light, brush)
-        palette1.setBrush(QPalette.Disabled, QPalette.BrightText, brush)
-        palette1.setBrush(QPalette.Disabled, QPalette.Base, brush3)
-        palette1.setBrush(QPalette.Disabled, QPalette.Window, brush3)
-        palette1.setBrush(QPalette.Disabled, QPalette.HighlightedText, brush)
-        palette1.setBrush(QPalette.Disabled, QPalette.AlternateBase, brush)
-        palette1.setBrush(QPalette.Disabled, QPalette.NoRole, brush)
-        self.tabs_sequana.setPalette(palette1)
-        self.tabs_sequana.setStyleSheet("background-color:#ffeedd")
         self.tabs_sequana.setTabPosition(QTabWidget.North)
         self.tabs_sequana.setTabShape(QTabWidget.Rounded)
         self.tabs_sequana.setDocumentMode(False)
@@ -204,40 +148,8 @@ class Ui_MainWindow(object):
         self.choice_button = QComboBox(self.Pipeline)
         self.choice_button.addItem("")
         self.choice_button.setObjectName("choice_button")
-        palette2 = QPalette()
-        palette2.setBrush(QPalette.Active, QPalette.Button, brush3)
-        palette2.setBrush(QPalette.Active, QPalette.Light, brush)
-        palette2.setBrush(QPalette.Active, QPalette.BrightText, brush)
-        palette2.setBrush(QPalette.Active, QPalette.Base, brush3)
-        palette2.setBrush(QPalette.Active, QPalette.Window, brush3)
-        brush4 = QBrush(QColor(89, 100, 255, 255))
-        brush4.setStyle(Qt.SolidPattern)
-        palette2.setBrush(QPalette.Active, QPalette.Highlight, brush4)
-        palette2.setBrush(QPalette.Active, QPalette.HighlightedText, brush)
-        palette2.setBrush(QPalette.Active, QPalette.AlternateBase, brush)
-        palette2.setBrush(QPalette.Active, QPalette.NoRole, brush)
-        palette2.setBrush(QPalette.Inactive, QPalette.Button, brush3)
-        palette2.setBrush(QPalette.Inactive, QPalette.Light, brush)
-        palette2.setBrush(QPalette.Inactive, QPalette.BrightText, brush)
-        palette2.setBrush(QPalette.Inactive, QPalette.Base, brush3)
-        palette2.setBrush(QPalette.Inactive, QPalette.Window, brush3)
-        palette2.setBrush(QPalette.Inactive, QPalette.Highlight, brush4)
-        palette2.setBrush(QPalette.Inactive, QPalette.HighlightedText, brush)
-        palette2.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush)
-        palette2.setBrush(QPalette.Inactive, QPalette.NoRole, brush)
-        palette2.setBrush(QPalette.Disabled, QPalette.Button, brush3)
-        palette2.setBrush(QPalette.Disabled, QPalette.Light, brush)
-        palette2.setBrush(QPalette.Disabled, QPalette.BrightText, brush)
-        palette2.setBrush(QPalette.Disabled, QPalette.Base, brush3)
-        palette2.setBrush(QPalette.Disabled, QPalette.Window, brush3)
-        palette2.setBrush(QPalette.Disabled, QPalette.Highlight, brush4)
-        palette2.setBrush(QPalette.Disabled, QPalette.HighlightedText, brush)
-        palette2.setBrush(QPalette.Disabled, QPalette.AlternateBase, brush)
-        palette2.setBrush(QPalette.Disabled, QPalette.NoRole, brush)
-        self.choice_button.setPalette(palette2)
         self.choice_button.setContextMenuPolicy(Qt.DefaultContextMenu)
         self.choice_button.setAutoFillBackground(False)
-        self.choice_button.setStyleSheet("selection-background-color: rgb(89, 100, 255);")
 
         self.verticalLayout.addWidget(self.choice_button)
 
@@ -280,7 +192,6 @@ class Ui_MainWindow(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.tabs_generic.sizePolicy().hasHeightForWidth())
         self.tabs_generic.setSizePolicy(sizePolicy3)
-        self.tabs_generic.setStyleSheet("background-color:#ffeedd")
         self.snakefile = QWidget()
         self.snakefile.setObjectName("snakefile")
         self.gridLayout_12 = QGridLayout(self.snakefile)
@@ -372,7 +283,9 @@ class Ui_MainWindow(object):
         self.label_4 = QLabel(self.frame_3)
         self.label_4.setObjectName("label_4")
         self.label_4.setAutoFillBackground(False)
-        self.label_4.setStyleSheet("background-color:orange")
+        self.label_4.setStyleSheet(
+            "background-color: #FFF8E1; color: #E65100; border: 1px solid #FFB300; border-radius: 4px; padding: 2px;"
+        )
         self.label_4.setFrameShape(QFrame.Box)
         self.label_4.setWordWrap(True)
         self.label_4.setMargin(1)
@@ -401,7 +314,6 @@ class Ui_MainWindow(object):
         self.tabs.setMinimumSize(QSize(0, 0))
         self.tabs.setMaximumSize(QSize(16777215, 2000))
         self.tabs.setBaseSize(QSize(0, 0))
-        self.tabs.setStyleSheet("background-color:#ffffff")
         self.snakemake = QWidget()
         self.snakemake.setObjectName("snakemake")
         sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
@@ -503,7 +415,11 @@ class Ui_MainWindow(object):
         sizePolicy7.setHeightForWidth(self.save_btn.sizePolicy().hasHeightForWidth())
         self.save_btn.setSizePolicy(sizePolicy7)
         self.save_btn.setAutoFillBackground(False)
-        self.save_btn.setStyleSheet("background-color:orange")
+        self.save_btn.setStyleSheet(
+            "QPushButton { background-color: #F57C00; color: white; border-radius: 4px; }"
+            "QPushButton:hover { background-color: #E65100; }"
+            "QPushButton:disabled { background-color: #B0BEC5; color: #90A4AE; }"
+        )
 
         self.horizontalLayout.addWidget(self.save_btn)
 
@@ -525,7 +441,9 @@ class Ui_MainWindow(object):
         self.progressBar.setSizePolicy(sizePolicy8)
         self.progressBar.setToolTipDuration(-1)
         self.progressBar.setStyleSheet(
-            "border: 2px solid grey;\n" "margin:2px;\n" "border-radius: 5px;\n" "text-align: center;\n" ""
+            "QProgressBar { border: 1px solid #CFD8DC; margin: 2px; border-radius: 5px; text-align: center;"
+            " background-color: #ECEFF1; color: #212121; }"
+            "QProgressBar::chunk { background-color: #1976D2; border-radius: 4px; }"
         )
         self.progressBar.setMaximum(100)
         self.progressBar.setValue(1)
