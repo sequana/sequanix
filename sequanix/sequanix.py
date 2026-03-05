@@ -620,9 +620,13 @@ class SequanixGUI(QW.QMainWindow):
                 color: #FFFFFF;
                 font-weight: bold;
             }
-            QTabBar::tab:hover:!selected {
+            QTabBar::tab:hover {
                 background-color: #BBDEFB;
                 color: #1565C0;
+            }
+            QTabBar::tab:selected:hover {
+                background-color: #1565C0;
+                color: #FFFFFF;
             }
 
             QPushButton {
