@@ -26,7 +26,6 @@ import time
 
 import colorlog
 import easydev
-import pkg_resources
 import psutil
 from PySide6 import QtCore, QtGui
 from PySide6 import QtWidgets as QW
@@ -1754,7 +1753,7 @@ def main(args=None):  # pragma: no cover
     # QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
     app = QW.QApplication(sys.argv)
 
-    filename = pkg_resources.resource_filename("sequanix", "media/sequana_logo_circle_512.png")
+    filename = os.path.join(os.path.dirname(__file__), "media/sequana_logo_circle_512.png")
 
     if options.nosplash:
         app.processEvents()

@@ -1,8 +1,8 @@
-import pkg_resources
+from importlib.metadata import PackageNotFoundError, version as _version
 
 try:
-    version = pkg_resources.require("sequanix")[0].version
-except:
+    version = _version("sequanix")
+except PackageNotFoundError:
     version = ">=0.2"
 
 
